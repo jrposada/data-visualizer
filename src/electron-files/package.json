@@ -1,0 +1,15 @@
+{
+    "name": "data-visualizer",
+    "version": "0.0.1",
+    "description": "",
+    "main": "main.backend.js",
+    "keywords": [
+      "3D",
+      "mesh",
+      "graph",
+      "plot"
+    ],
+    "author": "Javier Rodriguez Posada",
+    "license": "ISC"
+  }
+  

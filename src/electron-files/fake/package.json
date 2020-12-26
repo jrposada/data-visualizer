@@ -1,0 +1,9 @@
+{
+    "name": "data-visualizer",
+    "version": "0.0.0",
+    "description": "fake",
+    "main": "main.backend.js",
+    "author": "Javier Rodriguez Posada",
+    "license": "ISC"
+  }
+  
