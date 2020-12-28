@@ -22,12 +22,14 @@
     "@angular/platform-browser": "11.0.5",
     "@angular/platform-browser-dynamic": "11.0.5",
     "@angular/router": "11.0.5",
-    "electron": "11.1.1"
+    "electron": "11.1.1",
+    "plotly.js-dist": "1.58.4"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "0.1100.5",
     "@angular/cli": "11.0.5",
     "@angular/compiler-cli": "11.0.5",
+    "@types/plotly.js": "1.54.6",
     "del": "6.0.0",
     "electron-connect": "0.6.3",
     "gulp": "4.0.2",
