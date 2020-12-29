@@ -1,6 +1,6 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
-import { PlotModule } from "./plot/plot.module";
+import { PlotModule } from "../plot/plot.module";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from "./app.component";
