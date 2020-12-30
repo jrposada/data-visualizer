@@ -1,40 +1,36 @@
-import { Component } from "@angular/core";
+import { Component, OnDestroy } from "@angular/core";
+import { Subscription } from "rxjs";
+import { DataFrame } from "./core/data-frame";
+import { DataService } from "./services/data/data.service";
 
 @Component({
     selector: "app-root",
     templateUrl: "./app.component.html",
     styleUrls: ["./app.component.scss"]
 })
-export class AppComponent {
+export class AppComponent implements OnDestroy {
     public title = "Electron app with Angular";
 
     public data: any;
 
-    constructor() {
-        // Generating random data..
-        let a = [];
-        let b = [];
-        let c = [];
+    private onDataChangeSubscription: Subscription;
 
-        for (let i = 0; i < 50; i++) {
-            var a_ = Math.random(); 
-            a.push(a_);
-            
-            var b_ = Math.random(); 
-            b.push(b_);
-            
-            var c_ = Math.random(); 
-            c.push(c_);
-        }
+    constructor(private dataService: DataService) {
+        this.dataService.onDataChange.subscribe((dataFrame) => this.onDataChange(dataFrame))
+    }
 
-        // Plotting the mesh
+    public ngOnDestroy() {
+        this.onDataChangeSubscription.unsubscribe();
+    }
+
+    private onDataChange(dataFrame: DataFrame) {
         this.data=[{
             opacity:0.8,
             color:'rgb(300,100,200)',
             type: 'mesh3d',
-            x: a,
-            y: b,
-            z: c,
+            x: dataFrame.x,
+            y: dataFrame.y,
+            z: dataFrame.z
         }];
     }
 }
