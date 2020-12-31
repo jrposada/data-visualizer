@@ -17,4 +17,8 @@ export class InsertPlotComponent {
     public addMesh3dPlot() {
         this.plotService.addPlot(EPlotType.Mesh3d)
     }
+
+    public addSurfacePlot() {
+        this.plotService.addPlot(EPlotType.Surface)
+    }
 }

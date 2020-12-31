@@ -8,6 +8,7 @@ declare var Plotly: any;
 })
 export class PlotComponent implements OnInit, OnChanges {
     @Input() public data: any;
+    @Input() public layout: any;
 
     @ViewChild("graph", { static: true })
     public graphElement: ElementRef<HTMLElement>;
@@ -23,6 +24,6 @@ export class PlotComponent implements OnInit, OnChanges {
     }
 
     private updatePlot() {
-        Plotly.newPlot(this.graphElement.nativeElement, this.data);
+        Plotly.newPlot(this.graphElement.nativeElement, this.data, this.layout);
     }
 }
