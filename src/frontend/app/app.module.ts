@@ -9,12 +9,17 @@ import { ImportFileComponent } from "./toolbar/import-file/import-file.component
 import { FileImporterService } from "./services/file-importer/file-importer.service";
 import { XlsxFileImporterService } from "./services/file-importer/xlsx-file-importer.service.ts/xlsx-file-importer.service";
 import { DataService } from "./services/data/data.service";
+import { InsertPlotComponent } from "./toolbar/insert-plot/insert-plot.component";
+import { PlotButtonComponent } from "./toolbar/insert-plot/plot-button/plot-button.component";
+import { PlotService } from "./services/plot/plot.service";
 
 @NgModule({
     declarations: [
         AppComponent,
         ToolbarComponent,
-        ImportFileComponent
+        ImportFileComponent,
+        InsertPlotComponent,
+        PlotButtonComponent
     ],
     imports: [
         BrowserModule,
@@ -24,7 +29,8 @@ import { DataService } from "./services/data/data.service";
     providers: [
         FileImporterService,
         XlsxFileImporterService,
-        DataService
+        DataService,
+        PlotService
     ],
     bootstrap: [AppComponent]
 })

@@ -1,11 +1,13 @@
-:host {
-    background-color: yellow;
+button {
+    height: 100%;
+    padding: 0;
+    background-color: white;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
 }
 
-label, input {
+img, label {
     flex: 1 1 auto;
     display: flex;
     align-items: center;
