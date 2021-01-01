@@ -1,6 +1,8 @@
 export class DataFrame {
     public readonly data: {[key:string]:string}[] | undefined;
 
+    public get isEmpty(): boolean { return this.data === undefined }
+
     private _x: string[];
     public get x(): string[] {
         if (!this._x) {
