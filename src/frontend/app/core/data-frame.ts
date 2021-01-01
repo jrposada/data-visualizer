@@ -39,6 +39,10 @@ export class DataFrame {
         return this._array
     }
 
+    public get shape(): number[] {
+        return [this.rows.length, this.columns.length - 1];
+    }
+
     private _columns: string[];
     public get columns(): string[] {
         if (!this._columns) {
@@ -61,6 +65,48 @@ export class DataFrame {
     constructor(data: {[key:string]:string}[]);
     constructor(data?: {[key:string]:string}[]) {
         this.data = data;
+    }
+
+    public min(axis: "row" | "column"): number[] {
+        const min: number[] = [];
+        switch (axis) {
+            case "row":
+                this.data?.forEach(row => {
+                    const rowValues: number[] = [];
+                    Object.keys(row).slice(1).forEach(value => rowValues.push(Number.parseFloat(value)));
+                    min.push(Math.min(...rowValues));
+                });
+                break;
+            case "column":
+                this.columns.slice(1).forEach(column => {
+                    const columnValues: number[] = [];
+                    this.data?.forEach(row => columnValues.push(Number.parseFloat(row[column])));
+                    min.push(Math.min(...columnValues));
+                })
+                break;
+        }
+        return min;
+    }
+
+    public max(axis: "row" | "column"): number[] {
+        const max: number[] = [];
+        switch (axis) {
+            case "row":
+                this.data?.forEach(row => {
+                    const rowValues: number[] = [];
+                    Object.keys(row).slice(1).forEach(value => rowValues.push(Number.parseFloat(value)));
+                    max.push(Math.max(...rowValues));
+                });
+                break;
+            case "column":
+                this.columns.slice(1).forEach(column => {
+                    const columnValues: number[] = [];
+                    this.data?.forEach(row => columnValues.push(Number.parseFloat(row[column])));
+                    max.push(Math.max(...columnValues));
+                })
+                break;
+        }
+        return max;
     }
 
     private get3dPoints(): void {

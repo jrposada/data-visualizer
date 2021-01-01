@@ -6,7 +6,6 @@ declare var Plotly: any;
 
 export abstract class PlotComponent implements OnInit, OnChanges, OnDestroy {
     @Input() public dataFrame: DataFrame = new DataFrame();
-    @Input() public layout: any;
 
     @ViewChild("graph", { static: true })
     public graphElement: ElementRef<HTMLElement>;
@@ -35,16 +34,55 @@ export abstract class PlotComponent implements OnInit, OnChanges, OnDestroy {
 
     private updatePlot() {
         const data = this.calculateData();
+        const layout = this.calculateLayout();
 
-        Plotly.newPlot(this.graphElement.nativeElement, data, this.layout);
+        Plotly.react(this.graphElement.nativeElement, data, layout);
     }
 
     private updateSlider() {
         // First row is the variable definitions
-        const value = this.dataFrame.isEmpty ? 1 : this.dataFrame.rows.length - 1;
+        const value = this.dataFrame.isEmpty ? 1 : this.dataFrame.rows.length;
         this.sliderMax = value;
         this.sliderControl.setValue(value);
     }
     
     protected abstract calculateData(): any;
+
+    private calculateLayout(): any {
+        // Use a z range a 10% bigger than current data
+        let zMin = Math.min(...this.dataFrame.min("row"));
+        let zMax = Math.max(...this.dataFrame.max("row"));
+            
+        const zLength = zMin - zMax;
+        zMin -= zLength * 0.05
+        zMax += zLength * 0.05
+
+        // Calculate ratio in reference to x_ratio=1
+        const yRatio = this.dataFrame.shape[0] / this.dataFrame.shape[1]
+
+        return {
+            uirevision: this.dataFrame,
+            scene: {
+                aspectmode: "manual",
+                aspectratio: {
+                    x: 1,
+                    y: yRatio,
+                    z: 1
+                },
+                xaxis: {
+                    ticks: "outside",
+                    nticks: this.dataFrame.shape[1]
+                },
+                yaxis: {
+                    ticks: "outside",
+                    nticks: this.dataFrame.shape[0],
+                    range: [0, this.dataFrame.shape[0]]
+                },
+                zaxis: {
+                    ticks: "outside",
+                    range: [zMin,zMax]
+                }
+            }
+        };
+    }
 }
