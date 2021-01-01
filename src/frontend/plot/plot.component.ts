@@ -1,6 +1,6 @@
 import { ElementRef, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from "@angular/core";
 import { FormControl } from "@angular/forms";
-import { Subscription } from "rxjs";
+import { interval, Subscription } from "rxjs";
 import { DataFrame } from "src/frontend/app/core/data-frame";
 declare var Plotly: any;
 
@@ -11,9 +11,12 @@ export abstract class PlotComponent implements OnInit, OnChanges, OnDestroy {
     public graphElement: ElementRef<HTMLElement>;
 
     public readonly sliderControl: FormControl = new FormControl();
+    public sliderMin: number = 1;
     public sliderMax: number;
+    public isPlaying: boolean = false;
 
     private sliderValueChangesSubscription: Subscription;
+    private automaticRangeTickSubscription: Subscription;
 
     public ngOnInit(): void {
         this.sliderValueChangesSubscription = this.sliderControl.valueChanges.subscribe(() => this.updatePlot());
@@ -29,6 +32,22 @@ export abstract class PlotComponent implements OnInit, OnChanges, OnDestroy {
         if (changes.dataFrame) {
             this.updatePlot();
             this.updateSlider();
+        }
+    }
+
+    public toggleRangeCycle(): void {
+        if (this.isPlaying) {
+            this.isPlaying = false;
+            this.automaticRangeTickSubscription.unsubscribe();
+        } else {
+            this.isPlaying = true;
+            this.automaticRangeTickSubscription = interval(1000).subscribe(() => {
+                let value = this.sliderControl.value + 1;
+                if (value > this.sliderMax) {
+                    value = this.sliderMin;
+                }
+                this.sliderControl.setValue(value);
+            });
         }
     }
 

@@ -1,3 +1,24 @@
 mat-slider {
     width: 90%;
 }
+
+.slider {
+    display: flex;
+    align-content: center;
+    align-items: center;
+}
+
+.icon {
+    width: 32px;
+    height: 32px;
+    background-size: 32px 32px;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    &--play {
+        background-image: url(../assets/icons/play_circle-24px.svg);
+    }
+    &--pause {
+        background-image: url(../assets/icons/pause_circle-24px.svg);
+    }
+}

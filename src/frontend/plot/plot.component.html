@@ -1,2 +1,13 @@
 <div #graph></div>
-<mat-slider [formControl]="sliderControl" min="1" [max]="sliderMax" thumbLabel></mat-slider>
+<div class="slider">
+    <mat-slider [formControl]="sliderControl"
+                [min]="sliderMin"
+                [max]="sliderMax"
+                [disabled]="dataFrame.isEmpty"
+                thumbLabel></mat-slider>
+    <button mat-icon-button
+            (click)="toggleRangeCycle()"
+            [disabled]="dataFrame.isEmpty"
+            class="icon"
+            [ngClass]="{'icon--play': !isPlaying, 'icon--pause': isPlaying}"></button>
+</div>
