@@ -90,7 +90,8 @@ export abstract class PlotComponent implements OnInit, OnChanges, OnDestroy {
                 },
                 xaxis: {
                     ticks: "outside",
-                    nticks: this.dataFrame.shape[1]
+                    nticks: this.dataFrame.shape[1],
+                    range: [0, this.dataFrame.shape[1]]
                 },
                 yaxis: {
                     ticks: "outside",
