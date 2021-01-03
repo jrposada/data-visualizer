@@ -1,4 +1,5 @@
 module.exports = {
+    release: "./release-builds",
     coverage: "./coverage",
     output: "./dist",
     frontend: {

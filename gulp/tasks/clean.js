@@ -11,3 +11,8 @@ function cleanCoverage() {
     return del([config.coverage]);
 }
 exports.cleanCoverage = cleanCoverage;
+
+function cleanPackage() {
+    return del([config.release])
+}
+exports.cleanPackage = cleanPackage;

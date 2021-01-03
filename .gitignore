@@ -1,6 +1,7 @@
 .DS_STORE
 
 /dist/
+/release-builds/
 /coverage/
 /bazel-out
 /integration/bazel/bazel-*
