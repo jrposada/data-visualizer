@@ -1,0 +1,78 @@
+# This is a basic workflow to help you get started with Actions
+
+name: MacOS release
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  pull_request:
+    # Sequence of patterns matched against refs/tags
+    tags:
+    - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: macos-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      # Runs a single command using the runners shell
+      - name: Install dependencies
+        run: npm install
+
+      # Runs a set of commands using the runners shell
+      - name: Create MacOS installer
+        run: npm run installer-mac
+
+      - name: debug
+        run: ls
+
+      - name: Create a Release,
+        id: create_release
+        uses: actions/create-release@v1.1.4
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          # The name of the tag. This should come from the webhook payload, `github.GITHUB_REF` when a user pushes a new tag
+          tag_name: ${{ github.ref }}
+          # The name of the release. For example, `Release v1.0.1`
+          release_name: Data Visualizer ${{ github.ref }}
+          # Text describing the contents of the tag.
+          # body: # optional
+          # Path to file with information about the tag.
+          # body_path: # optional
+          # `true` to create a draft (unpublished) release, `false` to create a published one. Default: `false`
+          draft: true # optional
+          # `true` to identify the release as a prerelease. `false` to identify the release as a full release. Default: `false`
+          prerelease: true # optional
+          # Any branch or commit SHA the Git tag is created from, unused if the Git tag already exists. Default: SHA of current commit
+          # commitish: # optional
+          # Owner of the repository if it is not the current one
+          # owner: # optional
+          # Repository on which to release.  Used only if you want to create the release on another repo
+          # repo: # optional
+
+      - name: Upload a Release Asset
+        uses: actions/upload-release-asset@v1.0.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          # The URL for uploading assets to the release
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          # The path to the asset you want to upload
+          asset_path: ./installers/DataVisualizer.dmg
+          # The name of the asset you want to upload
+          asset_name: DataVisualizer.dmg
+          # The content-type of the asset you want to upload. See the supported Media Types here: https://www.iana.org/assignments/media-types/media-types.xhtml for more information
+          asset_content_type: application/octet-stream
+
