@@ -1,5 +1,6 @@
 const packager = require('electron-packager');
 const { series } = require("gulp");
+
 const config = require("../config");
 const { buildDevelopment } = require("./build");
 const { cleanPackage } = require("./clean");
@@ -7,10 +8,10 @@ const { cleanPackage } = require("./clean");
 function package(platform, arch, cb) {
     const options = {
         dir: config.output,
-        name: "DataVisualizer",
+        name: config.package.name,
         platform,
         arch,
-        out: config.release,
+        out: config.package.output,
         overwrite: true
     };
     

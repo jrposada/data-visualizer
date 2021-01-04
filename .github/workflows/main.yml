@@ -34,9 +34,6 @@ jobs:
       - name: Create MacOS installer
         run: npm run installer-mac
 
-      - name: debug
-        run: ls
-
       - name: Create a Release,
         id: create_release
         uses: actions/create-release@v1.1.4
