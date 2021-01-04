@@ -1,6 +1,6 @@
 module.exports = {
     installer: "./installers",
-    pacakge: {
+    package: {
         output: "./packages",
         name: "DataVisualizer"
     },

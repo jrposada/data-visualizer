@@ -12,7 +12,7 @@ exports.installerWin = series(packageWin, installerWin);
 function installerMac(cb) {
     const options = {
         out: config.installer,
-        appPath: config.pacakge.output + "/DataVisualizer-darwin-x64/" + config.pacakge.name + ".app",
+        appPath: config.package.output + "/DataVisualizer-darwin-x64/" + config.package.name + ".app",
         name: "DataVisualizer"
     };
 
