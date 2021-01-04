@@ -7,10 +7,10 @@ const { cleanPackage } = require("./clean");
 function package(platform, arch, cb) {
     const options = {
         dir: config.output,
-        name: "DataVisualizer",
+        name: config.pacakge.name,
         platform,
         arch,
-        out: config.release,
+        out: config.package.output,
         overwrite: true
     };
     

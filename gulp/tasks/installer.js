@@ -1,8 +1,8 @@
 const { series } = require("gulp");
 const createDMG = require("electron-installer-dmg");
 
-
 const { packageMac, packageWin } = require("./package");
+const config = require("../config");
 
 function installerWin(cb) {
     cb();
@@ -11,7 +11,8 @@ exports.installerWin = series(packageWin, installerWin);
 
 function installerMac(cb) {
     const options = {
-        appPath: "release-builds/DataVisualizer-darwin-x64/DataVisualizer.app",
+        out: config.installer,
+        appPath: config.pacakge.output + "/DataVisualizer-darwin-x64/" + config.pacakge.name + ".app",
         name: "DataVisualizer"
     };
 

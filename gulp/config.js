@@ -1,5 +1,9 @@
 module.exports = {
-    release: "./release-builds",
+    installer: "./installers",
+    pacakge: {
+        output: "./packages",
+        name: "DataVisualizer"
+    },
     coverage: "./coverage",
     output: "./dist",
     frontend: {

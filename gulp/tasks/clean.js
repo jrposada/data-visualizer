@@ -13,6 +13,6 @@ function cleanCoverage() {
 exports.cleanCoverage = cleanCoverage;
 
 function cleanPackage() {
-    return del([config.release])
+    return del([config.pacakge.output]);
 }
 exports.cleanPackage = cleanPackage;
