@@ -9,15 +9,13 @@ function installerWin(cb) {
 }
 exports.installerWin = series(packageWin, installerWin);
 
-function installerMac(cb) {
+function installerMac() {
     const options = {
         out: config.installer,
         appPath: config.package.output + "/DataVisualizer-darwin-x64/" + config.package.name + ".app",
         name: "DataVisualizer"
     };
 
-    createDMG(options, function done (err) {
-        cb(err);
-    });
+    return createDMG(options);
 }
 exports.installerMac = series(packageMac, installerMac);
