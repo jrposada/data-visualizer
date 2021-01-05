@@ -54,8 +54,11 @@ export abstract class PlotComponent implements OnInit, OnChanges, OnDestroy {
     private updatePlot() {
         const data = this.calculateData();
         const layout = this.calculateLayout();
+        const config = {
+            responsive: true
+        };
 
-        Plotly.react(this.graphElement.nativeElement, data, layout);
+        Plotly.react(this.graphElement.nativeElement, data, layout, config);
     }
 
     private updateSlider() {
@@ -81,6 +84,16 @@ export abstract class PlotComponent implements OnInit, OnChanges, OnDestroy {
 
         return {
             uirevision: this.dataFrame,
+            autosize: true,
+            margin: {
+                t: 50,
+                r: 0,
+                b: 10,
+                l: 0,
+            },
+            title: {
+                text: "Awesome plot"
+            },
             scene: {
                 aspectmode: "manual",
                 aspectratio: {
@@ -89,16 +102,25 @@ export abstract class PlotComponent implements OnInit, OnChanges, OnDestroy {
                     z: 1
                 },
                 xaxis: {
+                    title: {
+                        text: "Columns"
+                    },
                     ticks: "outside",
                     nticks: this.dataFrame.shape[1],
                     range: [0, this.dataFrame.shape[1]]
                 },
                 yaxis: {
+                    title: {
+                        text: "Rows"
+                    },
                     ticks: "outside",
                     nticks: this.dataFrame.shape[0],
                     range: [0, this.dataFrame.shape[0]]
                 },
                 zaxis: {
+                    title: {
+                        text: "Values"
+                    },
                     ticks: "outside",
                     range: [zMin,zMax]
                 }
