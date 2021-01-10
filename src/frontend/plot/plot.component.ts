@@ -1,7 +1,10 @@
 import { ElementRef, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from "@angular/core";
 import { FormControl } from "@angular/forms";
+import { MatDialog } from "@angular/material/dialog/dialog";
 import { interval, Subscription } from "rxjs";
 import { DataFrame } from "src/frontend/app/core/data-frame";
+import { EditPlotDialogComponent } from "./edit-plot-dialog/edit-plot-dialog.component";
+
 declare var Plotly: any;
 
 export abstract class PlotComponent implements OnInit, OnChanges, OnDestroy {
@@ -17,6 +20,13 @@ export abstract class PlotComponent implements OnInit, OnChanges, OnDestroy {
 
     private sliderValueChangesSubscription: Subscription;
     private automaticRangeTickSubscription: Subscription;
+
+    private title: string = "Plot";
+    private xAxisName: string = "Columns";
+    private yAxisName: string = "Rows";
+    private zAxisName: string = "Values";
+
+    constructor(private matDialog: MatDialog) { }
 
     public ngOnInit(): void {
         this.sliderValueChangesSubscription = this.sliderControl.valueChanges.subscribe(() => this.updatePlot());
@@ -51,6 +61,25 @@ export abstract class PlotComponent implements OnInit, OnChanges, OnDestroy {
         }
     }
 
+    public edit(): void {
+        const dialogRef = this.matDialog.open(EditPlotDialogComponent, {
+            width: '250px',
+            data: {
+                title: this.title,
+                xAxisName: this.xAxisName,
+                yAxisName: this.yAxisName,
+                zAxisName: this.zAxisName
+            }
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            this.title = result.title;
+            this.xAxisName = result.xAxisName;
+            this.yAxisName = result.yAxisName;
+            this.zAxisName = result.zAxisName;
+        });
+    }
+
     private updatePlot() {
         const data = this.calculateData();
         const layout = this.calculateLayout();
@@ -62,7 +91,12 @@ export abstract class PlotComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     private updateSlider() {
-        // First row is the variable definitions
+        if (this.dataFrame.isEmpty) {
+            this.sliderControl.disable()
+        } else {
+            this.sliderControl.enable();
+        }
+        
         const value = this.dataFrame.isEmpty ? 1 : this.dataFrame.rows.length;
         this.sliderMax = value;
         this.sliderControl.setValue(value);

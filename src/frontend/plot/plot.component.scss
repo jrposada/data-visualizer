@@ -34,4 +34,13 @@ mat-slider {
     &--pause {
         background-image: url(../assets/icons/pause_circle-24px.svg);
     }
+    &--edit {
+        background-image: url(../assets//icons/edit-24px.svg);
+    }
+
+    &--small {
+        width: 16px;
+        height: 16px;
+        background-size: 16px 16px;
+    }
 }
