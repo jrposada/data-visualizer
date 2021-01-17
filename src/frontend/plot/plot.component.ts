@@ -14,17 +14,17 @@ export abstract class PlotComponent implements OnInit, OnChanges, OnDestroy {
     public graphElement: ElementRef<HTMLElement>;
 
     public readonly sliderControl: FormControl = new FormControl();
-    public sliderMin: number = 1;
+    public sliderMin = 1;
     public sliderMax: number;
-    public isPlaying: boolean = false;
+    public isPlaying = false;
 
     private sliderValueChangesSubscription: Subscription;
     private automaticRangeTickSubscription: Subscription;
 
-    private title: string = "Plot";
-    private xAxisName: string = "Columns";
-    private yAxisName: string = "Rows";
-    private zAxisName: string = "Values";
+    private title = "Plot";
+    private xAxisName = "Columns";
+    private yAxisName = "Rows";
+    private zAxisName = "Values";
 
     constructor(private matDialog: MatDialog) { }
 
@@ -63,7 +63,7 @@ export abstract class PlotComponent implements OnInit, OnChanges, OnDestroy {
 
     public edit(): void {
         const dialogRef = this.matDialog.open(EditPlotDialogComponent, {
-            width: '250px',
+            width: "250px",
             data: {
                 title: this.title,
                 xAxisName: this.xAxisName,
@@ -92,29 +92,29 @@ export abstract class PlotComponent implements OnInit, OnChanges, OnDestroy {
 
     private updateSlider() {
         if (this.dataFrame.isEmpty) {
-            this.sliderControl.disable()
+            this.sliderControl.disable();
         } else {
             this.sliderControl.enable();
         }
-        
+
         const value = this.dataFrame.isEmpty ? 1 : this.dataFrame.rows.length;
         this.sliderMax = value;
         this.sliderControl.setValue(value);
     }
-    
+
     protected abstract calculateData(): any;
 
     private calculateLayout(): any {
         // Use a z range a 10% bigger than current data
         let zMin = Math.min(...this.dataFrame.min("row"));
         let zMax = Math.max(...this.dataFrame.max("row"));
-            
+
         const zLength = zMin - zMax;
-        zMin -= zLength * 0.05
-        zMax += zLength * 0.05
+        zMin -= zLength * 0.05;
+        zMax += zLength * 0.05;
 
         // Calculate ratio in reference to x_ratio=1
-        const yRatio = this.dataFrame.shape[0] / this.dataFrame.shape[1]
+        const yRatio = this.dataFrame.shape[0] / this.dataFrame.shape[1];
 
         return {
             uirevision: this.dataFrame,
@@ -156,7 +156,7 @@ export abstract class PlotComponent implements OnInit, OnChanges, OnDestroy {
                         text: "Values"
                     },
                     ticks: "outside",
-                    range: [zMin,zMax]
+                    range: [zMin, zMax]
                 }
             }
         };

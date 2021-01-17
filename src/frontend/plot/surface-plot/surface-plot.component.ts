@@ -14,7 +14,7 @@ export class SurfacePlotComponent extends PlotComponent {
             x: this.dataFrame.columns.slice(1),
             y: this.dataFrame.rows.slice(0, this.sliderControl.value),
             z: this.dataFrame.array.slice(0, this.sliderControl.value),
-            type: 'surface'
+            type: "surface"
         }];
     }
 }

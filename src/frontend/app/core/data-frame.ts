@@ -1,14 +1,14 @@
 export class DataFrame {
-    public readonly data: {[key:string]:string}[] | undefined;
+    public readonly data: {[key: string]: string}[] | undefined;
 
-    public get isEmpty(): boolean { return this.data === undefined }
+    public get isEmpty(): boolean { return this.data === undefined; }
 
     private _x: string[];
     public get x(): string[] {
         if (!this._x) {
             this.get3dPoints();
         }
-        
+
         return this._x;
     }
 
@@ -17,7 +17,7 @@ export class DataFrame {
         if (!this._y) {
             this.get3dPoints();
         }
-        
+
         return this._y;
     }
 
@@ -26,7 +26,7 @@ export class DataFrame {
         if (!this._z) {
             this.get3dPoints();
         }
-        
+
         return this._z;
     }
 
@@ -36,7 +36,7 @@ export class DataFrame {
             this.getArray();
         }
 
-        return this._array
+        return this._array;
     }
 
     public get shape(): number[] {
@@ -50,7 +50,7 @@ export class DataFrame {
         }
 
         return this._columns;
-    };
+    }
 
     private _rows: string[];
     public get rows(): string[] {
@@ -62,8 +62,7 @@ export class DataFrame {
     }
 
     constructor();
-    constructor(data: {[key:string]:string}[]);
-    constructor(data?: {[key:string]:string}[]) {
+    constructor(data?: {[key: string]: string}[]) {
         this.data = data;
     }
 
@@ -82,7 +81,7 @@ export class DataFrame {
                     const columnValues: number[] = [];
                     this.data?.forEach(row => columnValues.push(Number.parseFloat(row[column])));
                     min.push(Math.min(...columnValues));
-                })
+                });
                 break;
         }
         return min;
@@ -103,7 +102,7 @@ export class DataFrame {
                     const columnValues: number[] = [];
                     this.data?.forEach(row => columnValues.push(Number.parseFloat(row[column])));
                     max.push(Math.max(...columnValues));
-                })
+                });
                 break;
         }
         return max;
@@ -118,8 +117,8 @@ export class DataFrame {
                     this._x.push(x);
                     this._y.push(row[this.columns[0]]);
                     this._z.push(row[x]);
-                })
-            })
+                });
+            });
         }
     }
 
@@ -135,13 +134,13 @@ export class DataFrame {
                 });
 
                 this._array.push(subArray);
-            })
+            });
         }
     }
 
     private getColumns(): void {
         this._columns = [];
-        
+
         if (this.data) {
             Object.keys(this.data[0]).forEach((key) => this._columns.push(key));
         }

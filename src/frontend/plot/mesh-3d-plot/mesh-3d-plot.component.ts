@@ -10,8 +10,8 @@ export class Mesh3dPlotComponent extends PlotComponent {
     protected calculateData(): any {
         const max = this.sliderControl.value * (this.dataFrame.columns.length - 1);
         return [{
-            opacity:0.8,
-            color:"rgb(300,100,200)",
+            opacity: 0.8,
+            color: "rgb(300,100,200)",
             type: "mesh3d",
             x: this.dataFrame.x.slice(0, max),
             y: this.dataFrame.y.slice(0, max),

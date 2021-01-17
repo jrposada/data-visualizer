@@ -14,7 +14,7 @@ export class FileImporterService {
     public importFiles(files: FileList): Observable<DataFrame> {
         const file = files.item(0);
 
-        let importObservable: Observable<DataFrame> | undefined = undefined;
+        let importObservable: Observable<DataFrame> | undefined;
         switch (file?.type) {
             case EFileType.Xlsx:
                 importObservable = this.xlsxFileImporter.import(file);
