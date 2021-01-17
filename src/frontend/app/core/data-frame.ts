@@ -61,7 +61,6 @@ export class DataFrame {
         return this._rows;
     }
 
-    constructor();
     constructor(data?: {[key: string]: string}[]) {
         this.data = data;
     }

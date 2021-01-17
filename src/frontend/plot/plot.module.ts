@@ -9,6 +9,8 @@ import { Mesh3dPlotComponent } from "./mesh-3d-plot/mesh-3d-plot.component";
 import { Scatter3dPlotComponent } from "./scatter-3d-plot/scatter-3d-plot.component";
 import { SurfacePlotComponent } from "./surface-plot/surface-plot.component";
 import { EditPlotDialogComponent } from "./edit-plot-dialog/edit-plot-dialog.component";
+import { BrowserModule } from "@angular/platform-browser";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 @NgModule({
     declarations: [
@@ -17,15 +19,14 @@ import { EditPlotDialogComponent } from "./edit-plot-dialog/edit-plot-dialog.com
         SurfacePlotComponent,
         EditPlotDialogComponent
     ],
-    entryComponents: [
-        EditPlotDialogComponent
-    ],
     imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
         ReactiveFormsModule,
+        CommonModule,
         MatSliderModule,
         MatButtonModule,
-        MatDialogModule,
-        CommonModule
+        MatDialogModule
     ],
     exports: [
         Mesh3dPlotComponent,

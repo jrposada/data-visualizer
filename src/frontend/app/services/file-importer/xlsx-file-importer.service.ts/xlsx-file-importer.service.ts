@@ -18,7 +18,7 @@ export class XlsxFileImporterService {
             });
 
             const rows = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]]);
-            subject.next(new DataFrame(rows as {}[]));
+            subject.next(new DataFrame(rows as {[key: string]: string}[]));
         };
 
         reader.onerror = (ev: ProgressEvent<FileReader>) => {
