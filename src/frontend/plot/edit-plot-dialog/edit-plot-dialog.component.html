@@ -1,1 +1,18 @@
-mmm
+<form [formGroup]="form">
+    <mat-form-field>
+        <mat-label>Title</mat-label>
+        <input matInput [formControl]="titleControl">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>X axis</mat-label>
+        <input matInput [formControl]="xAxisNameControl">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Y axis</mat-label>
+        <input matInput [formControl]="yAxisNameControl">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Z axis</mat-label>
+        <input matInput [formControl]="zAxisNameControl">
+    </mat-form-field>
+</form>
