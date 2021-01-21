@@ -3,7 +3,7 @@ import { NgModule } from "@angular/core";
 import { PlotModule } from "../plot/plot.module";
 
 import { AppRoutingModule } from "./app-routing.module";
-import { AppComponent, DialogContentExampleDialog } from "./app.component";
+import { AppComponent } from "./app.component";
 import { ToolbarComponent } from "./toolbar/toolbar.component";
 import { ImportFileComponent } from "./toolbar/import-file/import-file.component";
 import { FileImporterService } from "./services/file-importer/file-importer.service";
@@ -21,10 +21,6 @@ import { MatDialogModule } from "@angular/material/dialog";
         ImportFileComponent,
         InsertPlotComponent,
         PlotButtonComponent,
-        DialogContentExampleDialog
-    ],
-    entryComponents: [
-        DialogContentExampleDialog
     ],
     imports: [
         BrowserModule,

@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
 import { PlotComponent } from "../plot.component";
 
 @Component({
@@ -7,6 +8,10 @@ import { PlotComponent } from "../plot.component";
     styleUrls: ["../plot.component.scss"]
 })
 export class Scatter3dPlotComponent extends PlotComponent {
+    constructor(matDialog: MatDialog) {
+        super(matDialog);
+    }
+
     protected calculateData(): any {
         const max = this.sliderControl.value * (this.dataFrame.columns.length - 1);
         return [{

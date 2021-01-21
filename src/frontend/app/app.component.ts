@@ -1,5 +1,4 @@
 import { Component, OnDestroy } from "@angular/core";
-import { MatDialog } from "@angular/material/dialog";
 import { Subscription } from "rxjs";
 import { DataFrame } from "./core/data-frame";
 import { DataService } from "./services/data/data.service";
@@ -21,7 +20,6 @@ export class AppComponent implements OnDestroy {
     private plotType: EPlotType;
 
     constructor(
-        private matDialog: MatDialog,
         private plotService: PlotService,
         private dataService: DataService
     ) {
@@ -32,19 +30,4 @@ export class AppComponent implements OnDestroy {
     public ngOnDestroy(): void {
         this.onDataChangeSubscription.unsubscribe();
     }
-
-    public openDialog(): void {
-        const dialogRef = this.matDialog.open(DialogContentExampleDialogComponent);
-
-        dialogRef.afterClosed().subscribe(result => {
-        console.log(`Dialog result: ${result}`);
-        });
-    }
 }
-
-
-@Component({
-    selector: "dialog-content-example-dialog",
-    template: "<div>Dialog</div>",
-})
-export class DialogContentExampleDialogComponent {}
