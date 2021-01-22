@@ -62,7 +62,11 @@ export class DataFrame {
     }
 
     constructor(data?: {[key: string]: string}[]) {
-        this.data = data;
+        if (this.validateData(data)) {
+            this.data = data;
+        } else {
+            throw new Error("Invalid file");
+        }
     }
 
     public min(axis: "row" | "column"): number[] {
@@ -105,6 +109,29 @@ export class DataFrame {
                 break;
         }
         return max;
+    }
+
+    private validateData(data?: {[key: string]: string}[]): boolean {
+        let isValid = true;
+
+        // Validate matrix shape
+        if (data && isValid) {
+            const numColumns = Object.keys(data[0]).length;
+            isValid &&= data.slice(1).every(row => {
+                return Object.keys(row).length === numColumns;
+            });
+        }
+
+        // Validate matrix content
+        if (data && isValid) {
+            isValid &&= data.slice(1).every(row => {
+                return Object.keys(row).slice(1).every(key => {
+                    return (Number(row[key]) && true) || false;
+                });
+            });
+        }
+
+        return isValid;
     }
 
     private get3dPoints(): void {
