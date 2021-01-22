@@ -20,7 +20,7 @@ import { MatDialogModule } from "@angular/material/dialog";
         ToolbarComponent,
         ImportFileComponent,
         InsertPlotComponent,
-        PlotButtonComponent,
+        PlotButtonComponent
     ],
     imports: [
         BrowserModule,
