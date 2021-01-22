@@ -62,11 +62,8 @@ export class DataFrame {
     }
 
     constructor(data?: {[key: string]: string}[]) {
-        if (this.validateData(data)) {
-            this.data = data;
-        } else {
-            throw new Error("Invalid file");
-        }
+        this.validateData(data);
+        this.data = data;
     }
 
     public min(axis: "row" | "column"): number[] {
@@ -111,27 +108,25 @@ export class DataFrame {
         return max;
     }
 
-    private validateData(data?: {[key: string]: string}[]): boolean {
-        let isValid = true;
-
-        // Validate matrix shape
-        if (data && isValid) {
+    private validateData(data?: {[key: string]: string}[]): void {
+        if (data) {
+            // Validate matrix shape
             const numColumns = Object.keys(data[0]).length;
-            isValid &&= data.slice(1).every(row => {
-                return Object.keys(row).length === numColumns;
+            data.slice(1).forEach(row => {
+                if (Object.keys(row).length !== numColumns) {
+                    throw new Error("Invalid file: Data matrix is incomplete.");
+                }
             });
-        }
 
-        // Validate matrix content
-        if (data && isValid) {
-            isValid &&= data.slice(1).every(row => {
-                return Object.keys(row).slice(1).every(key => {
-                    return (Number(row[key]) && true) || false;
+            // Validate matrix content
+            data.slice(1).forEach(row => {
+                Object.keys(row).slice(1).forEach(key => {
+                    if (!(Number(row[key]) && true) || false) {
+                        throw new Error("Invalid file: Data matrix inner values have to be numbers.");
+                    }
                 });
             });
         }
-
-        return isValid;
     }
 
     private get3dPoints(): void {
