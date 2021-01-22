@@ -1,7 +1,11 @@
 <div class="graph" #graph>
-    <button mat-icon-button
-            (click)="edit()"
-            class="icon icon--edit icon--small"></button>
+    <div class="graph__buttons">
+        <button mat-icon-button
+                matTooltip="Edit"
+                atTooltipPosition="below"
+                (click)="edit()"
+                class="icon icon--edit icon--small"></button>
+    </div>
 </div>
 <div class="slider">
     <mat-slider [formControl]="sliderControl"

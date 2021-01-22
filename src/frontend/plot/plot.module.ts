@@ -6,6 +6,7 @@ import { CommonModule } from "@angular/common";
 import { MatDialogModule } from "@angular/material/dialog";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
+import { MatTooltipModule } from "@angular/material/tooltip";
 
 import { Mesh3dPlotComponent } from "./mesh-3d-plot/mesh-3d-plot.component";
 import { Scatter3dPlotComponent } from "./scatter-3d-plot/scatter-3d-plot.component";
@@ -30,7 +31,8 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
         MatButtonModule,
         MatDialogModule,
         MatFormFieldModule,
-        MatInputModule
+        MatInputModule,
+        MatTooltipModule
     ],
     exports: [
         Mesh3dPlotComponent,

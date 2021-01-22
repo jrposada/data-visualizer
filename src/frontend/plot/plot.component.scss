@@ -7,6 +7,21 @@
 
 .graph {
     flex: 1 1 auto;
+    
+    &:hover {
+        .graph__buttons {
+            display: flex;
+        }
+    }
+
+    &__buttons {
+        display: none;
+        flex-direction: row;
+        margin-right: 255px;
+        padding: 4px 4px;
+    }
+
+    
 }
 
 .slider {
