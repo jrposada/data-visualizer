@@ -1,6 +1,7 @@
-import { Component, Inject } from "@angular/core";
+import { Component, Inject, OnDestroy } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
+import { Subscription } from "rxjs";
 
 export interface EditPlotData {
     title: string;
@@ -14,7 +15,7 @@ export interface EditPlotData {
     templateUrl: "./edit-plot-dialog.component.html",
     styleUrls: ["./edit-plot-dialog.component.scss"]
 })
-export class EditPlotDialogComponent {
+export class EditPlotDialogComponent implements OnDestroy {
     public form: FormGroup;
     public readonly titleControl: FormControl = new FormControl();
     public readonly xAxisNameControl: FormControl = new FormControl();
@@ -23,17 +24,48 @@ export class EditPlotDialogComponent {
 
     private formData: EditPlotData;
 
+    private titleChangeSubscription: Subscription;
+    private xAxisChangeSubscription: Subscription;
+    private yAxisChangeSubscription: Subscription;
+    private zAxisChangeSubscription: Subscription;
+
     constructor(
-        @Inject(MAT_DIALOG_DATA) public data: EditPlotData,
+        @Inject(MAT_DIALOG_DATA) private data: EditPlotData,
         private matDialogRef: MatDialogRef<EditPlotDialogComponent>,
         fb: FormBuilder
     ) {
+        // Init form data
+        this.formData = {
+            title: this.data.title,
+            xAxisName: this.data.xAxisName,
+            yAxisName: this.data.yAxisName,
+            zAxisName: this.data.zAxisName
+        };
+
+        this.titleControl.setValue(this.data.title, { emitEvent: false });
+        this.xAxisNameControl.setValue(this.data.xAxisName, { emitEvent: false });
+        this.yAxisNameControl.setValue(this.data.yAxisName, { emitEvent: false });
+        this.zAxisNameControl.setValue(this.data.zAxisName, { emitEvent: false });
+
+        // Subsrive to changes
+        this.titleChangeSubscription = this.titleControl.valueChanges.subscribe(value => this.formData.title = value);
+        this.xAxisChangeSubscription = this.xAxisNameControl.valueChanges.subscribe(value => this.formData.xAxisName = value);
+        this.yAxisChangeSubscription = this.yAxisNameControl.valueChanges.subscribe(value => this.formData.yAxisName = value);
+        this.zAxisChangeSubscription = this.zAxisNameControl.valueChanges.subscribe(value => this.formData.zAxisName = value);
+
         this.form = fb.group({
             title: this.titleControl,
             xAxisName: this.xAxisNameControl,
             yAxisName: this.yAxisNameControl,
             zAxisName: this.zAxisNameControl
         });
+    }
+
+    public ngOnDestroy(): void {
+        this.titleChangeSubscription.unsubscribe();
+        this.xAxisChangeSubscription.unsubscribe();
+        this.yAxisChangeSubscription.unsubscribe();
+        this.zAxisChangeSubscription.unsubscribe();
     }
 
     public save(): void {
