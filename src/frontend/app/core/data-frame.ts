@@ -62,6 +62,7 @@ export class DataFrame {
     }
 
     constructor(data?: {[key: string]: string}[]) {
+        this.validateData(data);
         this.data = data;
     }
 
@@ -105,6 +106,27 @@ export class DataFrame {
                 break;
         }
         return max;
+    }
+
+    private validateData(data?: {[key: string]: string}[]): void {
+        if (data) {
+            // Validate matrix shape
+            const numColumns = Object.keys(data[0]).length;
+            data.slice(1).forEach(row => {
+                if (Object.keys(row).length !== numColumns) {
+                    throw new Error("Invalid file: Data matrix is incomplete.");
+                }
+            });
+
+            // Validate matrix content
+            data.slice(1).forEach(row => {
+                Object.keys(row).slice(1).forEach(key => {
+                    if (!(Number(row[key]) && true) || false) {
+                        throw new Error("Invalid file: Data matrix inner values have to be numbers.");
+                    }
+                });
+            });
+        }
     }
 
     private get3dPoints(): void {
