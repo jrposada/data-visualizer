@@ -9,10 +9,10 @@ import { EFileType, FileImporterService } from "../../services/file-importer/fil
     styleUrls: ["./import-file.component.scss"]
 })
 export class ImportFileComponent {
-    public supportedFileTypes = EFileType.Xlsx
+    public supportedFileTypes = EFileType.Xlsx;
 
     constructor(private fileImporterService: FileImporterService, private dataService: DataService) { }
-    
+
     public handleFileInput(files: FileList) {
         this.fileImporterService.importFiles(files).subscribe((dataFrame => this.dataService.setData(dataFrame)));
     }

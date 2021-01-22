@@ -1,7 +1,11 @@
 import { ElementRef, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from "@angular/core";
 import { FormControl } from "@angular/forms";
+import { MatDialogConfig } from "@angular/material/dialog";
+import { MatDialog } from "@angular/material/dialog/dialog";
 import { interval, Subscription } from "rxjs";
 import { DataFrame } from "src/frontend/app/core/data-frame";
+import { EditPlotData, EditPlotDialogComponent } from "./edit-plot-dialog/edit-plot-dialog.component";
+
 declare var Plotly: any;
 
 export abstract class PlotComponent implements OnInit, OnChanges, OnDestroy {
@@ -11,12 +15,19 @@ export abstract class PlotComponent implements OnInit, OnChanges, OnDestroy {
     public graphElement: ElementRef<HTMLElement>;
 
     public readonly sliderControl: FormControl = new FormControl();
-    public sliderMin: number = 1;
+    public sliderMin = 1;
     public sliderMax: number;
-    public isPlaying: boolean = false;
+    public isPlaying = false;
 
     private sliderValueChangesSubscription: Subscription;
     private automaticRangeTickSubscription: Subscription;
+
+    private title = "Plot";
+    private xAxisName = "Columns";
+    private yAxisName = "Rows";
+    private zAxisName = "Values";
+
+    constructor(private matDialog: MatDialog) { }
 
     public ngOnInit(): void {
         this.sliderValueChangesSubscription = this.sliderControl.valueChanges.subscribe(() => this.updatePlot());
@@ -51,6 +62,34 @@ export abstract class PlotComponent implements OnInit, OnChanges, OnDestroy {
         }
     }
 
+    public edit(): void {
+        const dialogConfig = new MatDialogConfig();
+
+        dialogConfig.width = "250px";
+
+        dialogConfig.data = {
+            title: this.title,
+            xAxisName: this.xAxisName,
+            yAxisName: this.yAxisName,
+            zAxisName: this.zAxisName
+        } as EditPlotData;
+
+        const dialogRef = this.matDialog.open(EditPlotDialogComponent, dialogConfig);
+
+        dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                this.title = result.title;
+                this.xAxisName = result.xAxisName;
+                this.yAxisName = result.yAxisName;
+                this.zAxisName = result.zAxisName;
+
+                const layout = this.calculateLayout();
+
+                Plotly.relayout(this.graphElement.nativeElement, layout);
+            }
+        });
+    }
+
     private updatePlot() {
         const data = this.calculateData();
         const layout = this.calculateLayout();
@@ -62,25 +101,30 @@ export abstract class PlotComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     private updateSlider() {
-        // First row is the variable definitions
+        if (this.dataFrame.isEmpty) {
+            this.sliderControl.disable();
+        } else {
+            this.sliderControl.enable();
+        }
+
         const value = this.dataFrame.isEmpty ? 1 : this.dataFrame.rows.length;
         this.sliderMax = value;
         this.sliderControl.setValue(value);
     }
-    
+
     protected abstract calculateData(): any;
 
     private calculateLayout(): any {
         // Use a z range a 10% bigger than current data
         let zMin = Math.min(...this.dataFrame.min("row"));
         let zMax = Math.max(...this.dataFrame.max("row"));
-            
+
         const zLength = zMin - zMax;
-        zMin -= zLength * 0.05
-        zMax += zLength * 0.05
+        zMin -= zLength * 0.05;
+        zMax += zLength * 0.05;
 
         // Calculate ratio in reference to x_ratio=1
-        const yRatio = this.dataFrame.shape[0] / this.dataFrame.shape[1]
+        const yRatio = this.dataFrame.shape[0] / this.dataFrame.shape[1];
 
         return {
             uirevision: this.dataFrame,
@@ -92,7 +136,7 @@ export abstract class PlotComponent implements OnInit, OnChanges, OnDestroy {
                 l: 0,
             },
             title: {
-                text: "Awesome plot"
+                text: this.title
             },
             scene: {
                 aspectmode: "manual",
@@ -103,7 +147,7 @@ export abstract class PlotComponent implements OnInit, OnChanges, OnDestroy {
                 },
                 xaxis: {
                     title: {
-                        text: "Columns"
+                        text: this.xAxisName
                     },
                     ticks: "outside",
                     nticks: this.dataFrame.shape[1],
@@ -111,7 +155,7 @@ export abstract class PlotComponent implements OnInit, OnChanges, OnDestroy {
                 },
                 yaxis: {
                     title: {
-                        text: "Rows"
+                        text: this.yAxisName
                     },
                     ticks: "outside",
                     nticks: this.dataFrame.shape[0],
@@ -119,10 +163,10 @@ export abstract class PlotComponent implements OnInit, OnChanges, OnDestroy {
                 },
                 zaxis: {
                     title: {
-                        text: "Values"
+                        text: this.zAxisName
                     },
                     ticks: "outside",
-                    range: [zMin,zMax]
+                    range: [zMin, zMax]
                 }
             }
         };

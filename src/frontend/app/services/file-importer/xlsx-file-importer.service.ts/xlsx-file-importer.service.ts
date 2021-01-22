@@ -9,21 +9,21 @@ export class XlsxFileImporterService {
     public import(file: File): Observable<DataFrame> {
         const subject = new Subject<DataFrame>();
 
-        var reader = new FileReader();
+        const reader = new FileReader();
 
-        reader.onload = (ev: ProgressEvent<FileReader>)=> {
+        reader.onload = (ev: ProgressEvent<FileReader>) => {
             const data = ev.target?.result;
-            let workbook = XLSX.read(data, {
+            const workbook = XLSX.read(data, {
                 type: "binary"
             });
 
-            var rows = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]]);
-            subject.next(new DataFrame(rows as {}[]));
+            const rows = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]]);
+            subject.next(new DataFrame(rows as {[key: string]: string}[]));
         };
 
         reader.onerror = (ev: ProgressEvent<FileReader>) => {
             subject.error(ev);
-        }
+        };
 
         reader.readAsBinaryString(file);
 

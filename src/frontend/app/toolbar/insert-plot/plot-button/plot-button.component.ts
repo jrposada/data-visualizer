@@ -7,6 +7,6 @@ import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
     styleUrls: ["./plot-button.component.scss"]
 })
 export class PlotButtonComponent {
-    @Input() public src: string = "";
-    @Input() public label: string = "";
+    @Input() public src = "";
+    @Input() public label = "";
 }

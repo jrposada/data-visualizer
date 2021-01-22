@@ -13,7 +13,7 @@ export class AppComponent implements OnDestroy {
     public get isMesh3dPlot(): boolean { return this.plotType === EPlotType.Mesh3d; }
     public get isScatterdPlot(): boolean { return this.plotType === EPlotType.Scatter3d; }
     public get isSurfacePlot(): boolean { return this.plotType === EPlotType.Surface; }
-    
+
     public dataFrame: DataFrame = new DataFrame();
 
     private onDataChangeSubscription: Subscription;

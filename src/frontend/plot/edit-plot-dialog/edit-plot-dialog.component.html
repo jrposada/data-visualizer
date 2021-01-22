@@ -1,0 +1,27 @@
+<form [formGroup]="form">
+    <mat-form-field>
+        <mat-label>Title</mat-label>
+        <input matInput [formControl]="titleControl" spellcheck="false">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>X axis</mat-label>
+        <input matInput [formControl]="xAxisNameControl" spellcheck="false">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Y axis</mat-label>
+        <input matInput [formControl]="yAxisNameControl" spellcheck="false">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Z axis</mat-label>
+        <input matInput [formControl]="zAxisNameControl" spellcheck="false">
+    </mat-form-field>
+    <div class="grid-container">
+        <button mat-raised-button
+                (click)="close()"
+                [disabled]="form.invalid">Close</button>
+        <button mat-raised-button
+                color="primary"
+                (click)="save()"
+                [disabled]="form.invalid">Save</button>
+    </div>
+</form>

@@ -2,7 +2,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { PlotModule } from "../plot/plot.module";
 
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { ToolbarComponent } from "./toolbar/toolbar.component";
 import { ImportFileComponent } from "./toolbar/import-file/import-file.component";
@@ -12,6 +12,7 @@ import { DataService } from "./services/data/data.service";
 import { InsertPlotComponent } from "./toolbar/insert-plot/insert-plot.component";
 import { PlotButtonComponent } from "./toolbar/insert-plot/plot-button/plot-button.component";
 import { PlotService } from "./services/plot/plot.service";
+import { MatDialogModule } from "@angular/material/dialog";
 
 @NgModule({
     declarations: [
@@ -24,7 +25,8 @@ import { PlotService } from "./services/plot/plot.service";
     imports: [
         BrowserModule,
         AppRoutingModule,
-        PlotModule
+        PlotModule,
+        MatDialogModule
     ],
     providers: [
         FileImporterService,
