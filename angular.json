@@ -106,6 +106,12 @@
               ],
               "scripts": []
             }
+          },
+          "serve": {
+            "builder": "@angular-devkit/build-angular:dev-server",
+            "options": {
+              "browserTarget": "frontend:build:development"
+            }
           }
         }
       }
