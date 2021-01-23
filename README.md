@@ -12,4 +12,18 @@ TODO: Guide users through getting your code up and running on their own system. 
 TODO: Describe and show how to build your code and run the tests. 
 
 # Contribute
+1. Choose an issue.
+2. Create a branch with naming:
+```
+<username>-<issue-number>-<short-description>
+```
+4. Add a comment to the task stating the working branch and a link to it:
+```
+Branch: (<username>-<issue-number>-<short-description>)[<username>-<issue-number>-<short-description>]
+```
+4. Work on the issue.
+5. Create a Pull Request with name:
+```
+[<issue-number>] <issue-title>
+```
 TODO: Explain how other users and developers can contribute to make your code better. 
