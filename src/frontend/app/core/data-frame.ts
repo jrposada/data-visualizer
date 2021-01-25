@@ -121,8 +121,8 @@ export class DataFrame {
             // Validate matrix content
             data.slice(1).forEach(row => {
                 Object.keys(row).slice(1).forEach(key => {
-                    if (!(Number(row[key]) && true) || false) {
-                        throw new Error("Invalid file: Data matrix inner values have to be numbers.");
+                    if (isNaN(Number(row[key]))) {
+                        throw new Error(`Invalid file: Data matrix inner values have to be numbers.[${Object.keys(row)[0]}, ${key}] = ${row[key]}`);
                     }
                 });
             });
