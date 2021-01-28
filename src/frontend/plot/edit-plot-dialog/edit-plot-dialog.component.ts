@@ -30,22 +30,22 @@ export class EditPlotDialogComponent implements OnDestroy {
     private zAxisChangeSubscription: Subscription;
 
     constructor(
-        @Inject(MAT_DIALOG_DATA) private data: EditPlotData,
+        @Inject(MAT_DIALOG_DATA) data: EditPlotData,
         private matDialogRef: MatDialogRef<EditPlotDialogComponent>,
         fb: FormBuilder
     ) {
         // Init form data
         this.formData = {
-            title: this.data.title,
-            xAxisName: this.data.xAxisName,
-            yAxisName: this.data.yAxisName,
-            zAxisName: this.data.zAxisName
+            title: data.title,
+            xAxisName: data.xAxisName,
+            yAxisName: data.yAxisName,
+            zAxisName: data.zAxisName
         };
 
-        this.titleControl.setValue(this.data.title, { emitEvent: false });
-        this.xAxisNameControl.setValue(this.data.xAxisName, { emitEvent: false });
-        this.yAxisNameControl.setValue(this.data.yAxisName, { emitEvent: false });
-        this.zAxisNameControl.setValue(this.data.zAxisName, { emitEvent: false });
+        this.titleControl.setValue(data.title, { emitEvent: false });
+        this.xAxisNameControl.setValue(data.xAxisName, { emitEvent: false });
+        this.yAxisNameControl.setValue(data.yAxisName, { emitEvent: false });
+        this.zAxisNameControl.setValue(data.zAxisName, { emitEvent: false });
 
         // Subsrive to changes
         this.titleChangeSubscription = this.titleControl.valueChanges.subscribe(value => this.formData.title = value);

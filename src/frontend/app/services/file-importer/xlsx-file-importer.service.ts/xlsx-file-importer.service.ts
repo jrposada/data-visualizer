@@ -1,11 +1,15 @@
 import { Injectable } from "@angular/core";
+import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 import { Observable, Subject } from "rxjs";
-import { DataFrame } from "src/frontend/app/core/data-frame";
 
 import * as XLSX from "xlsx";
+import { Data, DataFrame } from "../../../core";
+import { ExcelDataSelectorDialogComponent } from "../../../toolbar/import-file/excel-data-selector-dialog/excel-data-selector-dialog.component";
 
 @Injectable()
 export class XlsxFileImporterService {
+    constructor(private matDialog: MatDialog) { }
+
     public import(file: File): Observable<DataFrame> {
         const subject = new Subject<DataFrame>();
 
@@ -17,12 +21,14 @@ export class XlsxFileImporterService {
                 type: "binary"
             });
 
-            const rows = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]]);
-            try {
-                subject.next(new DataFrame(rows as {[key: string]: string}[]));
-            } catch (err: any) {
-                subject.error(err);
-            }
+            const rows: Data = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]]);
+            this.openSelectDataDialog(rows).subscribe((selectedData) => {
+                try {
+                    subject.next(new DataFrame(selectedData as Data));
+                } catch (err: any) {
+                    subject.error(err);
+                }
+            });
         };
 
         reader.onerror = (ev: ProgressEvent<FileReader>) => {
@@ -30,6 +36,23 @@ export class XlsxFileImporterService {
         };
 
         reader.readAsBinaryString(file);
+
+        return subject;
+    }
+
+    private openSelectDataDialog(rows: Data): Observable<Data> {
+        const subject = new Subject<Data>();
+        const dialogConfig = new MatDialogConfig();
+
+        dialogConfig.width = "500px";
+
+        dialogConfig.data = rows;
+
+        const dialogRef = this.matDialog.open(ExcelDataSelectorDialogComponent, dialogConfig);
+
+        dialogRef.afterClosed().subscribe((selectedRows: Data) => {
+            subject.next(selectedRows);
+        });
 
         return subject;
     }

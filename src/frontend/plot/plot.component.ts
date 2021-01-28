@@ -3,7 +3,7 @@ import { FormControl } from "@angular/forms";
 import { MatDialogConfig } from "@angular/material/dialog";
 import { MatDialog } from "@angular/material/dialog/dialog";
 import { interval, Subscription } from "rxjs";
-import { DataFrame } from "src/frontend/app/core/data-frame";
+import { DataFrame } from "src/frontend/app/core";
 import { EditPlotData, EditPlotDialogComponent } from "./edit-plot-dialog/edit-plot-dialog.component";
 
 declare var Plotly: any;

@@ -13,6 +13,7 @@ import { InsertPlotComponent } from "./toolbar/insert-plot/insert-plot.component
 import { PlotButtonComponent } from "./toolbar/insert-plot/plot-button/plot-button.component";
 import { PlotService } from "./services/plot/plot.service";
 import { MatDialogModule } from "@angular/material/dialog";
+import { ExcelDataSelectorDialogComponent } from "./toolbar/import-file/excel-data-selector-dialog/excel-data-selector-dialog.component";
 
 @NgModule({
     declarations: [
@@ -20,7 +21,8 @@ import { MatDialogModule } from "@angular/material/dialog";
         ToolbarComponent,
         ImportFileComponent,
         InsertPlotComponent,
-        PlotButtonComponent
+        PlotButtonComponent,
+        ExcelDataSelectorDialogComponent
     ],
     imports: [
         BrowserModule,

@@ -1,5 +1,8 @@
+export type Data = {[key: string]: string}[];
+
+
 export class DataFrame {
-    public readonly data: {[key: string]: string}[] | undefined;
+    public readonly data: Data | undefined;
 
     public get isEmpty(): boolean { return this.data === undefined; }
 
@@ -61,7 +64,7 @@ export class DataFrame {
         return this._rows;
     }
 
-    constructor(data?: {[key: string]: string}[]) {
+    constructor(data?: Data) {
         this.validateData(data);
         this.data = data;
     }
@@ -108,7 +111,7 @@ export class DataFrame {
         return max;
     }
 
-    private validateData(data?: {[key: string]: string}[]): void {
+    private validateData(data?: Data): void {
         if (data) {
             // Validate matrix shape
             const numColumns = Object.keys(data[0]).length;
