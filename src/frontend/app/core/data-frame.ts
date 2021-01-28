@@ -1,8 +1,11 @@
-export type Data = {[key: string]: string}[];
+export type DataMatrix = DataRow[];
+export interface DataRow {
+    [key: string]: string;
+}
 
 
 export class DataFrame {
-    public readonly data: Data | undefined;
+    public readonly data: DataMatrix | undefined;
 
     public get isEmpty(): boolean { return this.data === undefined; }
 
@@ -64,7 +67,7 @@ export class DataFrame {
         return this._rows;
     }
 
-    constructor(data?: Data) {
+    constructor(data?: DataMatrix) {
         this.validateData(data);
         this.data = data;
     }
@@ -111,7 +114,7 @@ export class DataFrame {
         return max;
     }
 
-    private validateData(data?: Data): void {
+    private validateData(data?: DataMatrix): void {
         if (data) {
             // Validate matrix shape
             const numColumns = Object.keys(data[0]).length;

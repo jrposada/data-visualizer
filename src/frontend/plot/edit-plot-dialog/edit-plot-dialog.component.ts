@@ -1,4 +1,4 @@
-import { Component, Inject, OnDestroy } from "@angular/core";
+import { ChangeDetectionStrategy, Component, Inject, OnDestroy } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { Subscription } from "rxjs";
@@ -11,6 +11,7 @@ export interface EditPlotData {
 }
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.OnPush,
     selector: "edit-plot-dialog",
     templateUrl: "./edit-plot-dialog.component.html",
     styleUrls: ["./edit-plot-dialog.component.scss"]

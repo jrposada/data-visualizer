@@ -3,7 +3,7 @@ import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 import { Observable, Subject } from "rxjs";
 
 import * as XLSX from "xlsx";
-import { Data, DataFrame } from "../../../core";
+import { DataMatrix, DataFrame } from "../../../core";
 import { ExcelDataSelectorDialogComponent } from "../../../toolbar/import-file/excel-data-selector-dialog/excel-data-selector-dialog.component";
 
 @Injectable()
@@ -28,11 +28,11 @@ export class XlsxFileImporterService {
             type: "binary"
         });
 
-        const rows: Data = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]]);
+        const rows: DataMatrix = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]]);
         this.openSelectDataDialog(rows).subscribe((selectedData) => {
             try {
                 console.log("Creating dataframe");
-                subject.next(new DataFrame(selectedData as Data));
+                subject.next(new DataFrame(selectedData as DataMatrix));
             } catch (err: any) {
                 subject.error(err);
             }
@@ -43,8 +43,8 @@ export class XlsxFileImporterService {
         subject.error(ev);
     }
 
-    private openSelectDataDialog(rows: Data): Observable<Data> {
-        const subject = new Subject<Data>();
+    private openSelectDataDialog(rows: DataMatrix): Observable<DataMatrix> {
+        const subject = new Subject<DataMatrix>();
         const dialogConfig = new MatDialogConfig();
 
         dialogConfig.width = "500px";
@@ -53,7 +53,7 @@ export class XlsxFileImporterService {
 
         const dialogRef = this.matDialog.open(ExcelDataSelectorDialogComponent, dialogConfig);
 
-        dialogRef.afterClosed().subscribe((selectedRows: Data) => {
+        dialogRef.afterClosed().subscribe((selectedRows: DataMatrix) => {
             subject.next(selectedRows);
         });
 

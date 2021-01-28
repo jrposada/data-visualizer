@@ -1,0 +1,13 @@
+:host {
+    display: flex;
+    flex-direction: column;
+}
+
+table {
+    flex: 1 1 auto;
+}
+
+.footer {
+    display: flex;
+    flex-direction: row-reverse;
+}

@@ -1,8 +1,9 @@
-import { Component } from "@angular/core";
+import { ChangeDetectionStrategy, Component } from "@angular/core";
 import { DataService } from "../../services/data/data.service";
 import { EFileType, FileImporterService } from "../../services/file-importer/file-importer.service";
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.OnPush,
     selector: "import-file",
     templateUrl: "./import-file.component.html",
     styleUrls: ["./import-file.component.scss"]

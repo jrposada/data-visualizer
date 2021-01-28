@@ -1,1 +1,15 @@
-mmm
+<table>
+    <tr>
+        <th *ngFor="let key of keys">{{key}}</th>
+    </tr>
+    <tr *ngFor="let row of rows">
+        <td *ngFor="let item of getItems(row)">{{item}}</td>
+    </tr>
+</table>
+<div class="footer">
+    <button mat-raised-button
+            color="primary"
+            (click)="import()">Import</button>
+    <button mat-raised-button
+            (click)="cancel()">Cancel</button>
+</div>

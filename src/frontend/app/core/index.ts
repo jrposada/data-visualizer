@@ -1,6 +1,7 @@
-import { Data, DataFrame } from "./data-frame";
+import { DataMatrix, DataFrame, DataRow } from "./data-frame";
 
 export {
     DataFrame,
-    Data
+    DataMatrix,
+    DataRow
 };
