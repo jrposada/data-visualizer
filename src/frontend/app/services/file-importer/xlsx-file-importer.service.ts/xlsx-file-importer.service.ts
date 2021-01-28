@@ -15,29 +15,32 @@ export class XlsxFileImporterService {
 
         const reader = new FileReader();
 
-        reader.onload = (ev: ProgressEvent<FileReader>) => {
-            const data = ev.target?.result;
-            const workbook = XLSX.read(data, {
-                type: "binary"
-            });
-
-            const rows: Data = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]]);
-            this.openSelectDataDialog(rows).subscribe((selectedData) => {
-                try {
-                    subject.next(new DataFrame(selectedData as Data));
-                } catch (err: any) {
-                    subject.error(err);
-                }
-            });
-        };
-
-        reader.onerror = (ev: ProgressEvent<FileReader>) => {
-            subject.error(ev);
-        };
+        reader.onload = (ev: ProgressEvent<FileReader>) => this.onFileLoad(ev.target?.result, subject);
+        reader.onerror = (ev: ProgressEvent<FileReader>) => this.onFileError(ev, subject);
 
         reader.readAsBinaryString(file);
 
         return subject;
+    }
+
+    private onFileLoad(data: string | ArrayBuffer | null | undefined, subject: Subject<DataFrame>): void {
+        const workbook = XLSX.read(data, {
+            type: "binary"
+        });
+
+        const rows: Data = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]]);
+        this.openSelectDataDialog(rows).subscribe((selectedData) => {
+            try {
+                console.log("Creating dataframe");
+                subject.next(new DataFrame(selectedData as Data));
+            } catch (err: any) {
+                subject.error(err);
+            }
+        });
+    }
+
+    private onFileError(ev: ProgressEvent<FileReader>, subject: Subject<DataFrame>): void {
+        subject.error(ev);
     }
 
     private openSelectDataDialog(rows: Data): Observable<Data> {
