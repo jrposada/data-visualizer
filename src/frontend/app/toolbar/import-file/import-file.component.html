@@ -2,7 +2,8 @@
        id="file"
        [accept]="supportedFileTypes"
        (change)="handleFileInput($event.target?.files)"
-       [formControl]="inputFile">
+       [formControl]="inputFile"
+       class="import-file__input">
 <div class="import-file__label-container">
        <label for="file"
               class="import-file__label">
