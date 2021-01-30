@@ -3,4 +3,9 @@
        [accept]="supportedFileTypes"
        (change)="handleFileInput($event.target?.files)"
        [formControl]="inputFile">
-<label for="file">Import file</label>
+<div class="import-file__label-container">
+       <label for="file"
+              class="import-file__label">
+              Import file
+       </label>
+</div>

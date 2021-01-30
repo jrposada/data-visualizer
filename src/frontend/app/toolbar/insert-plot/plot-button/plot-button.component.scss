@@ -1,14 +1,11 @@
-button {
-    height: 100%;
-    padding: 0;
-    background-color: white;
+:host{
     display: flex;
     flex-direction: column;
-    align-items: stretch;
+    align-items: center;
+    justify-content: center;
+    margin: 0.5em;
 }
 
-img, label {
-    flex: 1 1 auto;
-    display: flex;
-    align-items: center;
+.plot-button__image{
+    height: 7em;
 }
