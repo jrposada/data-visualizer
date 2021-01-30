@@ -1,5 +1,6 @@
 <input type="file"
        id="file"
        [accept]="supportedFileTypes"
-       (change)="handleFileInput($event.target?.files)">
+       (change)="handleFileInput($event.target?.files)"
+       [formControl]="inputFile">
 <label for="file">Import file</label>
