@@ -13,6 +13,7 @@ import { InsertPlotComponent } from "./toolbar/insert-plot/insert-plot.component
 import { PlotButtonComponent } from "./toolbar/insert-plot/plot-button/plot-button.component";
 import { PlotService } from "./services/plot/plot.service";
 import { MatDialogModule } from "@angular/material/dialog";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
     declarations: [
@@ -26,7 +27,9 @@ import { MatDialogModule } from "@angular/material/dialog";
         BrowserModule,
         AppRoutingModule,
         PlotModule,
-        MatDialogModule
+        MatDialogModule,
+        FormsModule,
+        ReactiveFormsModule
     ],
     providers: [
         FileImporterService,
