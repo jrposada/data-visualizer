@@ -4,9 +4,11 @@
        (change)="handleFileInput($event.target?.files)"
        [formControl]="inputFile"
        class="import-file__input">
-<div class="import-file__label-container">
+<button mat-raised-button class="import-file__label-container">
        <label for="file"
               class="import-file__label">
-              Import file
+              <img src="frontend/assets/icons/upload_file-24px.svg"
+                     class="import-file__icon"
+              />
        </label>
-</div>
+</button>
