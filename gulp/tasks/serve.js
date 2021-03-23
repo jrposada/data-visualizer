@@ -26,6 +26,7 @@ function watchCode() {
         .pipe(debounceTime(1000))
         .subscribe(() => {
             electron.restart();
+            electron.reload();
         });
 
     watch(config.output +"/**/**.*", (cb) => {
