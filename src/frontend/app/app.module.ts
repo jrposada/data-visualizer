@@ -15,6 +15,7 @@ import { PlotService } from "./services/plot/plot.service";
 import { MatDialogModule } from "@angular/material/dialog";
 import { ExcelDataSelectorDialogComponent } from "./toolbar/import-file/excel-data-selector-dialog/excel-data-selector-dialog.component";
 import { MatButtonModule } from "@angular/material/button";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
     declarations: [
@@ -30,7 +31,9 @@ import { MatButtonModule } from "@angular/material/button";
         AppRoutingModule,
         PlotModule,
         MatDialogModule,
-        MatButtonModule
+        MatButtonModule,
+        FormsModule,
+        ReactiveFormsModule
     ],
     providers: [
         FileImporterService,

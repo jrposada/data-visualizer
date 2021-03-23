@@ -1,5 +1,14 @@
 <input type="file"
        id="file"
        [accept]="supportedFileTypes"
-       (change)="handleFileInput($event.target?.files)">
-<label for="file">Import file</label>
+       (change)="handleFileInput($event.target?.files)"
+       [formControl]="inputFile"
+       class="import-file__input">
+<button mat-raised-button class="import-file__label-container">
+       <label for="file"
+              class="import-file__label">
+              <img src="frontend/assets/icons/upload_file-24px.svg"
+                     class="import-file__icon"
+              />
+       </label>
+</button>
