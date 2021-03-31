@@ -11,21 +11,48 @@
     </table>
 </div>
 <form [formGroup]="form">
-    <div>
-        <input [formControl]="fromRowControl" />
-        -
-        <input [formControl]="toRowControl" />
-    </div>
-    <div>
-        <input [formControl]="fromColumnControl" />
-        -
-        <input [formControl]="toColumnControl" />
-    </div>
+    <table>
+        <tr>
+            <td colspan="2">
+                <label>Rows</label>
+            </td>
+            <td colspan="2">
+                <label>Columns</label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <mat-form-field>
+                    <input matInput [formControl]="fromRowControl" type="number"
+                           placeholder="From"  />
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field>
+                    <input matInput [formControl]="toRowControl" type="number"
+                           placeholder="To"  />
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field>
+                    <input matInput [formControl]="fromColumnControl" type="number"
+                           placeholder="From"  />
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field>
+                    <input matInput [formControl]="toColumnControl" type="number"
+                           placeholder="To"  />
+                </mat-form-field>
+            </td>
+        </tr>
+    </table>
 </form>
 <div class="footer">
     <button mat-raised-button
             color="primary"
-            (click)="import()">Import</button>
+            (click)="import()"
+            [disabled]="!form.valid">Import</button>
     <button mat-raised-button
             (click)="cancel()">Cancel</button>
 </div>

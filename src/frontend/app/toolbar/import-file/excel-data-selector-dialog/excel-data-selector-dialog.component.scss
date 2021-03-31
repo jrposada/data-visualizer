@@ -5,15 +5,23 @@
 }
 
 .table-container {
+    margin-bottom: 1em;
     height: 100%;
     overflow: auto;
+}
+
+form {
+    display: flex;
+    justify-content: center;
+
+    mat-form-field {
+        width: 8em;
+    }
 }
 
 .footer {
     display: flex;
     flex-direction: row-reverse;
-
-    margin-top: 1em;
 
     button {
         margin-left: 0.5em;

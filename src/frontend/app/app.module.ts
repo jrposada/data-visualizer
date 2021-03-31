@@ -17,6 +17,7 @@ import { MatTableModule} from "@angular/material/table";
 import { ExcelDataSelectorDialogComponent } from "./toolbar/import-file/excel-data-selector-dialog/excel-data-selector-dialog.component";
 import { MatButtonModule } from "@angular/material/button";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { MatInputModule } from "@angular/material/input";
 
 @NgModule({
     declarations: [
@@ -35,6 +36,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
         MatButtonModule,
         MatTableModule,
         FormsModule,
+        MatInputModule,
         ReactiveFormsModule
     ],
     providers: [
