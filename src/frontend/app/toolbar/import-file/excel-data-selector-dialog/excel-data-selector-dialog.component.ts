@@ -83,7 +83,7 @@ export class ExcelDataSelectorDialogComponent implements OnDestroy {
     }
 
     public cancel(): void {
-        this.matDialogRef.close();
+        this.matDialogRef.close(undefined);
     }
 
     public selectAll(): void {
