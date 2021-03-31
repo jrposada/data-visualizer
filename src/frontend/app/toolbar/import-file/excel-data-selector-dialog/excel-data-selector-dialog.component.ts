@@ -6,10 +6,10 @@ import { DataMatrix, DataRow } from "../../../core";
 import * as _ from "lodash";
 
 interface FormData {
-    fromRow: number,
-    toRow: number,
-    fromColumn: number,
-    toColumn: number
+    fromRow: number;
+    toRow: number;
+    fromColumn: number;
+    toColumn: number;
 }
 
 @Component({
@@ -21,7 +21,7 @@ interface FormData {
 export class ExcelDataSelectorDialogComponent implements OnDestroy {
     public readonly rows: DataMatrix;
     public readonly keys: string[];
-    
+
     public formData: FormData;
     public form: FormGroup;
     public readonly fromRowControl: FormControl = new FormControl();
@@ -49,17 +49,33 @@ export class ExcelDataSelectorDialogComponent implements OnDestroy {
             toRow: this.rows.length - 1,
             fromColumn: 1,
             toColumn: this.keys.length - 1
-        }
+        };
 
         this.fromRowControl.setValue(this.formData.fromRow, { emitEvent: false });
         this.toRowControl.setValue(this.formData.toRow, { emitEvent: false });
         this.fromColumnControl.setValue(this.formData.fromColumn, { emitEvent: false });
         this.toColumnControl.setValue(this.formData.toColumn, { emitEvent: false });
 
-        this.fromRowControl.setValidators([Validators.required, Validators.min(this.formData.fromRow), Validators.max(this.formData.toRow)]);
-        this.toRowControl.setValidators([Validators.required, Validators.min(this.formData.fromRow), Validators.max(this.formData.toRow)]);
-        this.fromColumnControl.setValidators([Validators.required, Validators.min(this.formData.fromColumn), Validators.max(this.formData.toColumn)]);
-        this.toColumnControl.setValidators([Validators.required, Validators.min(this.formData.fromColumn), Validators.max(this.formData.toColumn)]);
+        this.fromRowControl.setValidators([
+            Validators.required,
+            Validators.min(this.formData.fromRow),
+            Validators.max(this.formData.toRow)
+        ]);
+        this.toRowControl.setValidators([
+            Validators.required,
+            Validators.min(this.formData.fromRow),
+            Validators.max(this.formData.toRow)
+        ]);
+        this.fromColumnControl.setValidators([
+            Validators.required,
+            Validators.min(this.formData.fromColumn),
+            Validators.max(this.formData.toColumn)
+        ]);
+        this.toColumnControl.setValidators([
+            Validators.required,
+            Validators.min(this.formData.fromColumn),
+            Validators.max(this.formData.toColumn)
+        ]);
 
         this.form = fb.group({
             fromRow: this.fromRowControl,
@@ -68,7 +84,7 @@ export class ExcelDataSelectorDialogComponent implements OnDestroy {
             toColumn: this.toColumnControl
         });
 
-        this.formChangeSubscription = this.form.valueChanges.subscribe((value: FormData) => this.onFormChange(value))
+        this.formChangeSubscription = this.form.valueChanges.subscribe((value: FormData) => this.onFormChange(value));
 
         // Init selection
         this.selectAll();
@@ -92,7 +108,7 @@ export class ExcelDataSelectorDialogComponent implements OnDestroy {
 
     public isSelected(rowIndex: number, columnIndex: number): boolean {
         return this.formData.fromRow <= rowIndex && rowIndex <= this.formData.toRow &&
-               this.formData.fromColumn <= columnIndex && columnIndex <= this.formData.toColumn
+               this.formData.fromColumn <= columnIndex && columnIndex <= this.formData.toColumn;
     }
 
     private onFormChange(value: FormData): void {
@@ -105,11 +121,11 @@ export class ExcelDataSelectorDialogComponent implements OnDestroy {
         this.rows
             .slice(this.formData.fromRow, this.formData.toRow)
             .forEach((row: DataRow) => {
-                const selectedRow: DataRow = {}
+                const selectedRow: DataRow = {};
                 Object.keys(row)
                     .slice(this.formData.fromColumn, this.formData.toColumn)
-                    .forEach(key => selectedRow[key] = row[key])
-                
+                    .forEach(key => selectedRow[key] = row[key]);
+
                 this.selectedData.push(selectedRow);
             });
     }

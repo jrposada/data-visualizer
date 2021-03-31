@@ -118,7 +118,7 @@ export class PlotComponent implements OnInit, OnChanges, OnDestroy {
         this.sliderControl.setValue(value);
     }
 
-    protected calculateData(): any {};
+    protected calculateData(): any {}
 
     private calculateLayout(): any {
         // Use a z range a 10% bigger than current data

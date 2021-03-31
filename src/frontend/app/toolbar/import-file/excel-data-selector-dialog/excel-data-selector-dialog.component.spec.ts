@@ -28,7 +28,7 @@ describe("Given an excel-data-selector-dialog component", () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             declarations: [ ExcelDataSelectorDialogComponent ],
-            imports: [ 
+            imports: [
                 MatFormFieldModule,
                 MatInputModule,
                 MatTableModule,
@@ -41,10 +41,10 @@ describe("Given an excel-data-selector-dialog component", () => {
                 { provide: FormBuilder, useClass: FormBuilder }
             ],
         });
-    
+
         fixture = TestBed.createComponent(ExcelDataSelectorDialogComponent);
         component = fixture.componentInstance;
-        
+
         const matDialogRef = fixture.debugElement.injector.get(MatDialogRef);
         dialogCloseSpy = spyOn(matDialogRef, "close");
     });
@@ -131,7 +131,7 @@ describe("Given an excel-data-selector-dialog component", () => {
                 });
             });
         });
-        
+
         it("and import is clicked then dialog is closed with selected data", () => {
             const importButton = fixture.nativeElement.querySelector("#import");
 

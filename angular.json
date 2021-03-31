@@ -88,6 +88,10 @@
               "exclude": [
                 "**/node_modules/**"
               ]
+            },
+            "configurations": {
+              "production": {},
+              "development": {}
             }
           },
           "test": {

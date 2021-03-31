@@ -49,6 +49,7 @@
     "electron-packager": "15.2.0",
     "electron-installer-dmg": "3.0.0",
     "gulp": "4.0.2",
+    "gulp-tslint": "8.1.4",
     "jasmine-core": "3.6.0",
     "karma": "5.2.3",
     "karma-chrome-launcher": "3.1.0",
