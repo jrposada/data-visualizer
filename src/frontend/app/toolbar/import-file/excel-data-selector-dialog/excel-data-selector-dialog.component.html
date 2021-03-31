@@ -25,24 +25,48 @@
                 <mat-form-field>
                     <input matInput [formControl]="fromRowControl" type="number"
                            placeholder="From"  />
+                    <mat-error *ngIf="fromRowControl.hasError('required') && !fromRowControl.hasError('min') && !fromRowControl.hasError('max')">
+                        Please enter a valid number
+                    </mat-error>
+                    <mat-error *ngIf="fromRowControl.hasError('min') || fromRowControl.hasError('max')">
+                        Must be between 1 and {{this.rows.length - 1}}
+                    </mat-error>
                 </mat-form-field>
             </td>
             <td>
                 <mat-form-field>
                     <input matInput [formControl]="toRowControl" type="number"
                            placeholder="To"  />
+                    <mat-error *ngIf="toRowControl.hasError('required') && !toRowControl.hasError('min') && !toRowControl.hasError('max')">
+                        Please enter a valid number
+                    </mat-error>
+                    <mat-error *ngIf="toRowControl.hasError('min') || toRowControl.hasError('max')">
+                        Must be between 1 and {{this.rows.length - 1}}
+                    </mat-error>
                 </mat-form-field>
             </td>
             <td>
                 <mat-form-field>
                     <input matInput [formControl]="fromColumnControl" type="number"
                            placeholder="From"  />
+                    <mat-error *ngIf="fromColumnControl.hasError('required') && !fromColumnControl.hasError('min') && !fromColumnControl.hasError('max')">
+                        Please enter a valid number
+                    </mat-error>
+                    <mat-error *ngIf="fromColumnControl.hasError('min') || fromColumnControl.hasError('max')">
+                        Must be between 1 and {{this.keys.length - 1}}
+                    </mat-error>
                 </mat-form-field>
             </td>
             <td>
                 <mat-form-field>
                     <input matInput [formControl]="toColumnControl" type="number"
                            placeholder="To"  />
+                    <mat-error *ngIf="toColumnControl.hasError('required') && !toColumnControl.hasError('min') && !toColumnControl.hasError('max')">
+                        Please enter a valid number
+                    </mat-error>
+                    <mat-error *ngIf="toColumnControl.hasError('min') || toColumnControl.hasError('max')">
+                        Must be between 1 and {{this.keys.length - 1}}
+                    </mat-error>
                 </mat-form-field>
             </td>
         </tr>
