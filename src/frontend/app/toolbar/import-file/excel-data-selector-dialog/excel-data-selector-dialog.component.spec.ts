@@ -9,7 +9,7 @@ import { DataMatrix } from "../../../core";
 import { ExcelDataSelectorDialogComponent } from "./excel-data-selector-dialog.component";
 
 
-fdescribe("Given an excel-data-selector-dialog component", () => {
+describe("Given an excel-data-selector-dialog component", () => {
     let fixture: ComponentFixture<ExcelDataSelectorDialogComponent>;
     let component: ExcelDataSelectorDialogComponent;
 
