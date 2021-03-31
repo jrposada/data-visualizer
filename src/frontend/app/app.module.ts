@@ -13,6 +13,7 @@ import { InsertPlotComponent } from "./toolbar/insert-plot/insert-plot.component
 import { PlotButtonComponent } from "./toolbar/insert-plot/plot-button/plot-button.component";
 import { PlotService } from "./services/plot/plot.service";
 import { MatDialogModule } from "@angular/material/dialog";
+import { MatTableModule} from "@angular/material/table";
 import { ExcelDataSelectorDialogComponent } from "./toolbar/import-file/excel-data-selector-dialog/excel-data-selector-dialog.component";
 import { MatButtonModule } from "@angular/material/button";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
@@ -32,6 +33,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
         PlotModule,
         MatDialogModule,
         MatButtonModule,
+        MatTableModule,
         FormsModule,
         ReactiveFormsModule
     ],

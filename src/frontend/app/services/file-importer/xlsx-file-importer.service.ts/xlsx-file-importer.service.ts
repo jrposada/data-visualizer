@@ -47,7 +47,8 @@ export class XlsxFileImporterService {
         const subject = new Subject<DataMatrix>();
         const dialogConfig = new MatDialogConfig();
 
-        dialogConfig.width = "500px";
+        dialogConfig.width = "90%";
+        dialogConfig.height = "90%";
 
         dialogConfig.data = rows;
 

@@ -30,7 +30,6 @@ export class ExcelDataSelectorDialogComponent implements OnDestroy {
     public readonly toColumnControl: FormControl = new FormControl();
 
     private selectedData: DataMatrix;
-
     private formChangeSubscription: Subscription;
 
     constructor(
@@ -46,11 +45,12 @@ export class ExcelDataSelectorDialogComponent implements OnDestroy {
 
         // Create form
         this.formData = {
-            fromRow: 0,
-            toRow: this.rows.length,
-            fromColumn: 0,
-            toColumn: this.keys.length
+            fromRow: 1,
+            toRow: this.rows.length - 1,
+            fromColumn: 1,
+            toColumn: this.keys.length - 1
         }
+
         this.fromRowControl.setValue(this.formData.fromRow, { emitEvent: false });
         this.toRowControl.setValue(this.formData.toRow, { emitEvent: false });
         this.fromColumnControl.setValue(this.formData.fromColumn, { emitEvent: false });
@@ -78,14 +78,6 @@ export class ExcelDataSelectorDialogComponent implements OnDestroy {
         this.formChangeSubscription.unsubscribe();
     }
 
-    public getItems(row: DataRow): string[] {
-        const items: string[] = [];
-
-        Object.values(row).forEach(value => items.push(value));
-
-        return items;
-    }
-
     public import(): void {
         this.matDialogRef.close(this.selectedData);
     }
@@ -96,6 +88,11 @@ export class ExcelDataSelectorDialogComponent implements OnDestroy {
 
     public selectAll(): void {
         this.selectedData = this.rows;
+    }
+
+    public isSelected(rowIndex: number, columnIndex: number): boolean {
+        return this.formData.fromRow <= rowIndex && rowIndex <= this.formData.toRow &&
+               this.formData.fromColumn <= columnIndex && columnIndex <= this.formData.toColumn
     }
 
     private onFormChange(value: FormData): void {
