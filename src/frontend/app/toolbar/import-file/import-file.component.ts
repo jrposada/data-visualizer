@@ -18,11 +18,14 @@ export class ImportFileComponent {
         private dataService: DataService
     ) { }
 
-    public handleFileInput(files: FileList) {
-        this.fileImporterService.importFiles(files)
-            .subscribe(
-                dataFrame => this.dataService.setData(dataFrame),
-                err => alert(err)
-            ).add(this.inputFile.setValue(null, {emitEvent: false}));
+    public handleFileInput(target: EventTarget | null) {
+        if (target != null) {
+            const files: FileList = (target as any).files;
+            this.fileImporterService.importFiles(files)
+                .subscribe(
+                    dataFrame => this.dataService.setData(dataFrame),
+                    err => alert(err)
+                ).add(this.inputFile.setValue(null, {emitEvent: false}));
+        }
     }
 }
