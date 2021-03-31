@@ -5,7 +5,7 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { MatTableModule } from "@angular/material/table";
 import { NoopAnimationsModule } from "@angular/platform-browser/animations";
-import { DataMatrix } from "src/frontend/app/core";
+import { DataMatrix } from "../../../core";
 import { ExcelDataSelectorDialogComponent } from "./excel-data-selector-dialog.component";
 
 
