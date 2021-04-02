@@ -15,6 +15,7 @@ import { PlotService } from "./services/plot/plot.service";
 import { MatDialogModule } from "@angular/material/dialog";
 import {MatButtonModule} from '@angular/material/button'; 
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { UiModule } from "../ui/ui.module";
 
 @NgModule({
     declarations: [
@@ -31,7 +32,8 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
         MatDialogModule,
         MatButtonModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        UiModule
     ],
     providers: [
         FileImporterService,
