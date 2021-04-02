@@ -1,14 +1,20 @@
-import { ElementRef, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from "@angular/core";
+import { ChangeDetectionStrategy, Component, ElementRef, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from "@angular/core";
 import { FormControl } from "@angular/forms";
 import { MatDialogConfig } from "@angular/material/dialog";
-import { MatDialog } from "@angular/material/dialog/dialog";
+import { MatDialog } from "@angular/material/dialog";
 import { interval, Subscription } from "rxjs";
-import { DataFrame } from "src/frontend/app/core/data-frame";
+import { DataFrame } from "src/frontend/app/core";
 import { EditPlotData, EditPlotDialogComponent } from "./edit-plot-dialog/edit-plot-dialog.component";
 
 declare var Plotly: any;
 
-export abstract class PlotComponent implements OnInit, OnChanges, OnDestroy {
+@Component({
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: "plot",
+    templateUrl: "./plot.component.html",
+    styleUrls: ["./plot.component.scss"]
+})
+export class PlotComponent implements OnInit, OnChanges, OnDestroy {
     @Input() public dataFrame: DataFrame = new DataFrame();
 
     @ViewChild("graph", { static: true })
@@ -112,7 +118,7 @@ export abstract class PlotComponent implements OnInit, OnChanges, OnDestroy {
         this.sliderControl.setValue(value);
     }
 
-    protected abstract calculateData(): any;
+    protected calculateData(): any {}
 
     private calculateLayout(): any {
         // Use a z range a 10% bigger than current data

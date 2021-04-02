@@ -13,8 +13,12 @@ import { InsertPlotComponent } from "./toolbar/insert-plot/insert-plot.component
 import { PlotButtonComponent } from "./toolbar/insert-plot/plot-button/plot-button.component";
 import { PlotService } from "./services/plot/plot.service";
 import { MatDialogModule } from "@angular/material/dialog";
-import {MatButtonModule} from '@angular/material/button'; 
+import { MatTableModule} from "@angular/material/table";
+import { ExcelDataSelectorDialogComponent } from "./toolbar/import-file/excel-data-selector-dialog/excel-data-selector-dialog.component";
+import { MatButtonModule } from "@angular/material/button";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { MatInputModule } from "@angular/material/input";
+import { MatFormFieldModule } from "@angular/material/form-field";
 
 @NgModule({
     declarations: [
@@ -22,7 +26,8 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
         ToolbarComponent,
         ImportFileComponent,
         InsertPlotComponent,
-        PlotButtonComponent
+        PlotButtonComponent,
+        ExcelDataSelectorDialogComponent
     ],
     imports: [
         BrowserModule,
@@ -30,7 +35,10 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
         PlotModule,
         MatDialogModule,
         MatButtonModule,
+        MatTableModule,
         FormsModule,
+        MatInputModule,
+        MatFormFieldModule,
         ReactiveFormsModule
     ],
     providers: [

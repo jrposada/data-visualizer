@@ -1,6 +1,6 @@
 import { Component, OnDestroy } from "@angular/core";
 import { Subscription } from "rxjs";
-import { DataFrame } from "./core/data-frame";
+import { DataFrame } from "./core";
 import { DataService } from "./services/data/data.service";
 import { EPlotType, PlotService } from "./services/plot/plot.service";
 

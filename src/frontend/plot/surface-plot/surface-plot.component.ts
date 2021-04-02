@@ -1,8 +1,9 @@
-import { Component } from "@angular/core";
+import { ChangeDetectionStrategy, Component } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { PlotComponent } from "../plot.component";
 
 @Component({
+    changeDetection: ChangeDetectionStrategy.OnPush,
     selector: "surface-plot",
     templateUrl: "../plot.component.html",
     styleUrls: ["../plot.component.scss"]

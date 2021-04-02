@@ -1,7 +1,7 @@
 <input type="file"
        id="file"
        [accept]="supportedFileTypes"
-       (change)="handleFileInput($event.target?.files)"
+       (change)="handleFileInput($event.target)"
        [formControl]="inputFile"
        class="import-file__input">
 <button mat-raised-button class="import-file__label-container">

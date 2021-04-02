@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Observable, Subject } from "rxjs";
-import { DataFrame } from "../../core/data-frame";
+import { DataFrame } from "../../core";
 
 @Injectable()
 export class DataService {

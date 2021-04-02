@@ -1,9 +1,9 @@
 const { spawn } = require("child_process");
+const { series } = require("gulp");
 
 class NgLauncher {
     constructor(isProd) {
         this.params = ['node_modules/@angular/cli/bin/ng'];
-        this.params.push('build');
 
         if (isProd) {
             this.params.push('--configuration=production');
@@ -13,11 +13,8 @@ class NgLauncher {
     }
 
     build(cb) {
-        const buildSpawn = spawn('node', this.params, { stdio: ['inherit', 'inherit', 'inherit'] });
-
-        buildSpawn.on("close", (code) => {
-            cb(code);
-        });
+        this.params.push('build');
+        this._spawn(cb);
     }
 
     watch(cb) {
@@ -27,13 +24,30 @@ class NgLauncher {
         this.build(cb);
     }
 
+    lint(cb) {
+        this.params.push('lint');
+        this._spawn(cb);
+    }
+
+    _spawn(cb) {
+        const buildSpawn = spawn('node', this.params, { stdio: ['inherit', 'inherit', 'inherit'] });
+
+        buildSpawn.on("close", (code) => {
+            cb(code);
+        });
+    }
+}
+
+function lintFrontend(cb) {
+    const ngLauncher = new NgLauncher(true);
+    ngLauncher.lint(cb);
 }
 
 function buildFrontendProduction(cb) {
     const ngLauncher = new NgLauncher(true);
     ngLauncher.build(cb);
 }
-exports.buildFrontendProduction = buildFrontendProduction;
+exports.buildFrontendProduction = series(lintFrontend, buildFrontendProduction);
 
 function buildFrontendDevelopment(cb) {
     const ngLauncher = new NgLauncher(false);

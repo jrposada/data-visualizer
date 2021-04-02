@@ -1,0 +1,92 @@
+<div class="table-container">
+    <table mat-table [dataSource]=rows>
+        <ng-container *ngFor="let key of keys"
+                        [matColumnDef]="key">
+            <th mat-header-cell *matHeaderCellDef> {{key}} </th>
+            <td mat-cell *matCellDef="let element"> {{element[key]}} </td>
+        </ng-container>
+    
+        <tr mat-header-row *matHeaderRowDef="keys; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: keys;"></tr>
+    </table>
+</div>
+<form [formGroup]="form">
+    <table>
+        <tr>
+            <td colspan="2">
+                <label>Rows</label>
+            </td>
+            <td colspan="2">
+                <label>Columns</label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <mat-form-field>
+                    <input matInput [formControl]="fromRowControl" type="number"
+                           placeholder="From"  />
+                    <mat-error id="from-row__error--required"
+                               *ngIf="fromRowControl.hasError('required') && !fromRowControl.hasError('min') && !fromRowControl.hasError('max')">
+                        Please enter a valid number
+                    </mat-error>
+                    <mat-error id="from-row__error--range"
+                               *ngIf="fromRowControl.hasError('min') || fromRowControl.hasError('max')">
+                        Must be between 1 and {{this.rows.length - 1}}
+                    </mat-error>
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field>
+                    <input matInput [formControl]="toRowControl" type="number"
+                           placeholder="To"  />
+                    <mat-error id="to-row__error--required"
+                               *ngIf="toRowControl.hasError('required') && !toRowControl.hasError('min') && !toRowControl.hasError('max')">
+                        Please enter a valid number
+                    </mat-error>
+                    <mat-error id="to-row__error--required"
+                               *ngIf="toRowControl.hasError('min') || toRowControl.hasError('max')">
+                        Must be between 1 and {{this.rows.length - 1}}
+                    </mat-error>
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field>
+                    <input matInput [formControl]="fromColumnControl" type="number"
+                           placeholder="From"  />
+                    <mat-error id="from-column__error--required"
+                               *ngIf="fromColumnControl.hasError('required') && !fromColumnControl.hasError('min') && !fromColumnControl.hasError('max')">
+                        Please enter a valid number
+                    </mat-error>
+                    <mat-error id="from-column__error--required"
+                               *ngIf="fromColumnControl.hasError('min') || fromColumnControl.hasError('max')">
+                        Must be between 1 and {{this.keys.length - 1}}
+                    </mat-error>
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field>
+                    <input matInput [formControl]="toColumnControl" type="number"
+                           placeholder="To"  />
+                    <mat-error id="to-column__error--required"
+                               *ngIf="toColumnControl.hasError('required') && !toColumnControl.hasError('min') && !toColumnControl.hasError('max')">
+                        Please enter a valid number
+                    </mat-error>
+                    <mat-error id="to-column__error--required"
+                               *ngIf="toColumnControl.hasError('min') || toColumnControl.hasError('max')">
+                        Must be between 1 and {{this.keys.length - 1}}
+                    </mat-error>
+                </mat-form-field>
+            </td>
+        </tr>
+    </table>
+</form>
+<div class="footer">
+    <button mat-raised-button
+            id="import"
+            color="primary"
+            (click)="import()"
+            [disabled]="!form.valid">Import</button>
+    <button mat-raised-button
+            id="cancel"
+            (click)="cancel()">Cancel</button>
+</div>
