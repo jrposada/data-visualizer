@@ -2,7 +2,7 @@ const packager = require('electron-packager');
 const { series } = require("gulp");
 
 const config = require("../config");
-const { buildDevelopment } = require("./build");
+const { buildProduction } = require("./build");
 const { cleanPackage } = require("./clean");
 
 function package(platform, arch, cb) {
@@ -26,10 +26,10 @@ function package(platform, arch, cb) {
 function packageWin(cb) {
     package("win32", "ia32", cb);
 }
-exports.packageWin = series(buildDevelopment, cleanPackage, packageWin);
+exports.packageWin = series(buildProduction, cleanPackage, packageWin);
 
 
 function packageMac(cb) {
     package("darwin", "x64", cb);
 }
-exports.packageMac = series(buildDevelopment, cleanPackage, packageMac);
+exports.packageMac = series(buildProduction, cleanPackage, packageMac);

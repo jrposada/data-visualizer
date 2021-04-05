@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Observable, of } from "rxjs";
-import { DataFrame } from "../../core/data-frame";
+import { DataFrame } from "../../core";
 import { XlsxFileImporterService } from "./xlsx-file-importer.service.ts/xlsx-file-importer.service";
 
 export enum EFileType {

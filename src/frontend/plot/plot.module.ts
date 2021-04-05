@@ -14,9 +14,11 @@ import { SurfacePlotComponent } from "./surface-plot/surface-plot.component";
 import { EditPlotDialogComponent } from "./edit-plot-dialog/edit-plot-dialog.component";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { PlotComponent } from "./plot.component";
 
 @NgModule({
     declarations: [
+        PlotComponent,
         Mesh3dPlotComponent,
         Scatter3dPlotComponent,
         SurfacePlotComponent,

@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { Observable, PartialObserver, Subject } from "rxjs";
 import { DialogService, EDialogType, InputDialogComponent, InputDialogOptions } from "src/frontend/ui";
-import { DataFrame } from "../../core/data-frame";
 import { DataSet } from "../../core/data-set";
+import { DataFrame } from "../../core";
 
 @Injectable()
 export class DataService {

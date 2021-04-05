@@ -1,0 +1,29 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.table-container {
+    margin-bottom: 1em;
+    height: 100%;
+    overflow: auto;
+}
+
+form {
+    display: flex;
+    justify-content: center;
+
+    mat-form-field {
+        width: 8em;
+    }
+}
+
+.footer {
+    display: flex;
+    flex-direction: row-reverse;
+
+    button {
+        margin-left: 0.5em;
+    }
+}
