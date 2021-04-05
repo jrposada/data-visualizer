@@ -6,10 +6,10 @@ import { DataFrame } from "../../core";
 
 @Injectable()
 export class DataService {
-    public get onDataChange(): Observable<DataFrame> { return this._onDataChange; }
-    public get data(): DataFrame { return this._dataSets[this._dataSets.length - 1]?.dataFrame; }
+    public get onDataChange(): Observable<DataSet[]> { return this._onDataChange; }
+    public get data(): DataSet[] { return this._dataSets; }
 
-    private readonly _onDataChange: Subject<DataFrame> = new Subject<DataFrame>();
+    private readonly _onDataChange: Subject<DataSet[]> = new Subject<DataSet[]>();
     private readonly _dataSets: DataSet[] = [];
 
     constructor(private dialogService: DialogService) { }
@@ -30,7 +30,7 @@ export class DataService {
     private onDialogClosed(name: string, dataFrame: DataFrame) {
         if (name !== undefined) {
             this._dataSets.push(new DataSet(name, dataFrame));
-            this._onDataChange.next(dataFrame);
+            this._onDataChange.next(this._dataSets);
         }
     }
 }

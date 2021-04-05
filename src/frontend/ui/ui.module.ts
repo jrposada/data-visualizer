@@ -10,10 +10,10 @@ import { InputDialogComponent } from "./dialogs/input-dialog/input-dialog.compon
 
 @NgModule({
     declarations: [
-        InputDialogComponent
+        InputDialogComponent,
     ],
-    entryComponents: [
-        InputDialogComponent
+    exports: [
+        InputDialogComponent,
     ],
     providers: [
         DialogService

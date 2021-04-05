@@ -8,3 +8,24 @@ body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+// dialogs
+$padding: 1.25em;
+
+.dialog-header {
+    padding: 0em $padding $padding $padding;
+}
+
+.dialog-body {
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+
+    padding-top: $padding;
+}
+
+.dialog-footer {
+    display: flex;
+    justify-content: space-evenly;
+
+    padding: $padding $padding 0em $padding;
+}

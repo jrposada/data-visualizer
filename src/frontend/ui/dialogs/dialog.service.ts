@@ -11,7 +11,7 @@ export enum EDialogType {
 export class DialogService {
     constructor(private matDialog: MatDialog) { }
 
-    public open(component: ComponentType<unknown>, type: EDialogType, data: any) {
+    public open(component: ComponentType<unknown>, type: EDialogType, data?: any) {
         const dialogConfig = this.getDialogConfig(type);
 
         dialogConfig.data = data;

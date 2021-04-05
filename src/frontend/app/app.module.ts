@@ -20,6 +20,8 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { UiModule } from "../ui/ui.module";
 import { MatInputModule } from "@angular/material/input";
 import { MatFormFieldModule } from "@angular/material/form-field";
+import { SelectDataSetDialogComponent } from "./toolbar/insert-plot/select-data-set-dialog/select-data-set-dialog.component";
+import { MatListModule } from "@angular/material/list";
 
 @NgModule({
     declarations: [
@@ -28,7 +30,8 @@ import { MatFormFieldModule } from "@angular/material/form-field";
         ImportFileComponent,
         InsertPlotComponent,
         PlotButtonComponent,
-        ExcelDataSelectorDialogComponent
+        ExcelDataSelectorDialogComponent,
+        SelectDataSetDialogComponent
     ],
     imports: [
         BrowserModule,
@@ -40,7 +43,7 @@ import { MatFormFieldModule } from "@angular/material/form-field";
         MatDialogModule,
         MatButtonModule,
         MatTableModule,
-        ReactiveFormsModule,
+        MatListModule,
         MatInputModule,
         MatFormFieldModule
     ],

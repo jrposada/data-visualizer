@@ -12,8 +12,7 @@ export interface InputDialogOptions {
 
 @Component({
     selector: "input-dialog",
-    templateUrl: "./input-dialog.component.html",
-    styleUrls: ["./input-dialog.component.scss"]
+    templateUrl: "./input-dialog.component.html"
 })
 export class InputDialogComponent {
     public readonly inputControl: FormControl = new FormControl(undefined, Validators.required);

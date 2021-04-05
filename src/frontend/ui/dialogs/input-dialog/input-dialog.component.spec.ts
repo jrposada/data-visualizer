@@ -1,5 +1,3 @@
-// TODO
-
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { ReactiveFormsModule } from "@angular/forms";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
@@ -9,7 +7,7 @@ import { NoopAnimationsModule } from "@angular/platform-browser/animations";
 import { InputDialogOptions } from "../..";
 import { InputDialogComponent } from "./input-dialog.component";
 
-fdescribe("Given an input-dialog component", () => {
+describe("Given an input-dialog component", () => {
     let fixture: ComponentFixture<InputDialogComponent>;
     let component: InputDialogComponent;
 
