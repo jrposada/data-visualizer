@@ -31,7 +31,8 @@
     "plotly.js-dist": "1.58.4",
     "rxjs": "6.6.3",
     "xlsx": "0.16.9",
-    "zone.js": "0.10.3"
+    "zone.js": "0.10.3",
+    "uuid": "8.3.2"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "0.1100.5",
@@ -39,6 +40,7 @@
     "@angular/compiler-cli": "11.0.5",
     "@types/jasmine": "3.6.2",
     "@types/plotly.js": "1.54.6",
+    "@types/uuid": "8.3.0",
     "@types/lodash": "4.14.168",
     "ts-node": "9.1.1",
     "tslint": "6.1.3",

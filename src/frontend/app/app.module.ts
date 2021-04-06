@@ -17,8 +17,11 @@ import { MatTableModule} from "@angular/material/table";
 import { ExcelDataSelectorDialogComponent } from "./toolbar/import-file/excel-data-selector-dialog/excel-data-selector-dialog.component";
 import { MatButtonModule } from "@angular/material/button";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { UiModule } from "../ui/ui.module";
 import { MatInputModule } from "@angular/material/input";
 import { MatFormFieldModule } from "@angular/material/form-field";
+import { SelectDataSetDialogComponent } from "./toolbar/insert-plot/select-data-set-dialog/select-data-set-dialog.component";
+import { MatListModule } from "@angular/material/list";
 
 @NgModule({
     declarations: [
@@ -27,19 +30,22 @@ import { MatFormFieldModule } from "@angular/material/form-field";
         ImportFileComponent,
         InsertPlotComponent,
         PlotButtonComponent,
-        ExcelDataSelectorDialogComponent
+        ExcelDataSelectorDialogComponent,
+        SelectDataSetDialogComponent
     ],
     imports: [
         BrowserModule,
         AppRoutingModule,
+        FormsModule,
+        ReactiveFormsModule,
+        UiModule,
         PlotModule,
         MatDialogModule,
         MatButtonModule,
         MatTableModule,
-        FormsModule,
+        MatListModule,
         MatInputModule,
-        MatFormFieldModule,
-        ReactiveFormsModule
+        MatFormFieldModule
     ],
     providers: [
         FileImporterService,

@@ -23,7 +23,7 @@ export class ImportFileComponent {
             const files: FileList = (target as any).files;
             this.fileImporterService.importFiles(files)
                 .subscribe(
-                    dataFrame => this.dataService.setData(dataFrame),
+                    dataFrame => this.dataService.addData(dataFrame),
                     err => alert(err)
                 ).add(this.inputFile.setValue(null, {emitEvent: false}));
         }

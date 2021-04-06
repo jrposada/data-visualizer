@@ -1,0 +1,21 @@
+
+<div class="dialog-header">Data Set selection</div>
+<div class="dialog-body">
+    <mat-selection-list [(ngModel)]="selectedDataSetId"
+                        [multiple]="false">
+        <mat-list-option *ngFor="let data of dataService.data"
+                            [value]="data.id">
+            {{data.name}}
+        </mat-list-option>
+    </mat-selection-list>
+</div>
+<div class="dialog-footer">
+    <button mat-raised-button
+        id="select-data-set-dialog__close"
+        (click)="cancel()">Cancel</button>
+    <button mat-raised-button
+        id="select-data-set-dialog__submit"
+        color="primary"
+        (click)="select()"
+        [disabled]="selectedDataSetId === undefined">Select</button>
+</div>

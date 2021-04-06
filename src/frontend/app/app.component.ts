@@ -1,7 +1,6 @@
 import { Component, OnDestroy } from "@angular/core";
 import { Subscription } from "rxjs";
 import { DataFrame } from "./core";
-import { DataService } from "./services/data/data.service";
 import { EPlotType, PlotService } from "./services/plot/plot.service";
 
 @Component({
@@ -16,18 +15,17 @@ export class AppComponent implements OnDestroy {
 
     public dataFrame: DataFrame = new DataFrame();
 
-    private onDataChangeSubscription: Subscription;
+    private onAddPlotSubscription: Subscription;
     private plotType: EPlotType;
 
-    constructor(
-        private plotService: PlotService,
-        private dataService: DataService
-    ) {
-        this.plotService.onAddPlot.subscribe(plotType => this.plotType = plotType);
-        this.onDataChangeSubscription = this.dataService.onDataChange.subscribe(dataFrame => this.dataFrame = dataFrame);
+    constructor(private plotService: PlotService) {
+        this.onAddPlotSubscription = this.plotService.onAddPlot.subscribe(plotData => {
+            this.dataFrame = plotData.dataFrame;
+            this.plotType = plotData.type;
+        });
     }
 
     public ngOnDestroy(): void {
-        this.onDataChangeSubscription.unsubscribe();
+        this.onAddPlotSubscription.unsubscribe();
     }
 }

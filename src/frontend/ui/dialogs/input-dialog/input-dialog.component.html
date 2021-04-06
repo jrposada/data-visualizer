@@ -1,0 +1,22 @@
+<div id="input-dialog__header"
+     class="dialog-header">{{data.title}}</div>
+<div class="dialog-body">
+    <div *ngIf="data.description"
+          id="input-dialog__description">
+        {{data.description}}
+    </div>
+    <mat-form-field>
+        <input matInput [formControl]="inputControl" type="text"
+                [placeholder]="data.placeholder || ''"  />
+    </mat-form-field>
+</div>
+<div class="dialog-footer">
+    <button mat-raised-button
+            id="input-dialog__close"
+            (click)="close()">{{data.close}}</button>
+    <button mat-raised-button
+            id="input-dialog__submit"
+            color="primary"
+            (click)="submit()"
+            [disabled]="!inputControl.valid">{{data.submit}}</button>
+</div>
