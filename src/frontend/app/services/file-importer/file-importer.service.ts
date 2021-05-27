@@ -13,16 +13,32 @@ export class FileImporterService {
 
     public importFiles(files: FileList): Observable<DataFrame> {
         const file = files.item(0);
-
         let importObservable: Observable<DataFrame> | undefined;
-        switch (file?.type) {
-            case EFileType.Xlsx:
-                importObservable = this.xlsxFileImporter.import(file);
-                break;
-            default:
-                console.log(`No file importer for type: ${files.item(0)?.type}`);
+        if (file) {
+            const fileType: string = file.type ? file.type : this.calculateFileTypeWithExtention(file.name);
+
+            switch (fileType) {
+                case EFileType.Xlsx:
+                    importObservable = this.xlsxFileImporter.import(file);
+                    break;
+                default:
+                    console.log(`No file importer for type: ${fileType}`);
+            }
         }
 
         return importObservable || of(new DataFrame());
+    }
+
+    private calculateFileTypeWithExtention(fileName: string): string {
+        let resultType: string;
+        const fileExtension = fileName.split(".").pop();
+        switch (fileExtension) {
+            case "xlsx":
+                resultType = EFileType.Xlsx;
+                break;
+            default:
+                resultType = fileExtension ? fileExtension : "";
+        }
+        return resultType;
     }
 }
