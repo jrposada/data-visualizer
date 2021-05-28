@@ -79,13 +79,6 @@ export class DataFrame {
         this.sourceData = _.cloneDeep(data);
     }
 
-// [{"__EMPTY":"Manzanas","Paco":1,"Juan":3,"Pepe":6},
-// {"__EMPTY":"Peras","Paco":3,"Juan":7,"Pepe":2},
-// {"__EMPTY":"Cebollas","Paco":5,"Juan":0,"Pepe":1},
-// {"__EMPTY":"Albaricoque","Paco":4,"Juan":6,"Pepe":1},
-// {"__EMPTY":"Limon","Paco":2,"Juan":3,"Pepe":4}]
-// {"__EMPTY":"Tomates","Paco":2,"Juan":3,"Pepe":4}]
-
     public min(axis: "row" | "column"): number[] {
         const min: number[] = [];
         switch (axis) {
