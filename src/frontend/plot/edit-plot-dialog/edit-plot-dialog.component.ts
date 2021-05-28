@@ -8,6 +8,8 @@ export interface EditPlotData {
     xAxisName: string;
     yAxisName: string;
     zAxisName: string;
+    zMax: number;
+    zMin: number;
     meanRange: number;
 }
 
@@ -23,6 +25,8 @@ export class EditPlotDialogComponent implements OnDestroy {
     public readonly xAxisNameControl: FormControl = new FormControl();
     public readonly yAxisNameControl: FormControl = new FormControl();
     public readonly zAxisNameControl: FormControl = new FormControl();
+    public readonly zMaxControl: FormControl = new FormControl();
+    public readonly zMinControl: FormControl = new FormControl();
     public readonly meanRangeControl: FormControl = new FormControl();
 
     private formData: EditPlotData;
@@ -31,6 +35,8 @@ export class EditPlotDialogComponent implements OnDestroy {
     private xAxisChangeSubscription: Subscription;
     private yAxisChangeSubscription: Subscription;
     private zAxisChangeSubscription: Subscription;
+    private zMaxChangeSubscription: Subscription;
+    private zMinChangeSubscription: Subscription;
     private meanRangeChangeSubscription: Subscription;
 
     constructor(
@@ -44,6 +50,8 @@ export class EditPlotDialogComponent implements OnDestroy {
             xAxisName: data.xAxisName,
             yAxisName: data.yAxisName,
             zAxisName: data.zAxisName,
+            zMax: data.zMax,
+            zMin: data.zMin,
             meanRange: data.meanRange,
         };
 
@@ -51,13 +59,17 @@ export class EditPlotDialogComponent implements OnDestroy {
         this.xAxisNameControl.setValue(data.xAxisName, { emitEvent: false });
         this.yAxisNameControl.setValue(data.yAxisName, { emitEvent: false });
         this.zAxisNameControl.setValue(data.zAxisName, { emitEvent: false });
+        this.zMaxControl.setValue(data.zMax, { emitEvent: false });
+        this.zMinControl.setValue(data.zMin, { emitEvent: false });
         this.meanRangeControl.setValue(data.meanRange, { emitEvent: false });
 
-        // Subsrive to changes
+        // Subscribe to changes
         this.titleChangeSubscription = this.titleControl.valueChanges.subscribe(value => this.formData.title = value);
         this.xAxisChangeSubscription = this.xAxisNameControl.valueChanges.subscribe(value => this.formData.xAxisName = value);
         this.yAxisChangeSubscription = this.yAxisNameControl.valueChanges.subscribe(value => this.formData.yAxisName = value);
         this.zAxisChangeSubscription = this.zAxisNameControl.valueChanges.subscribe(value => this.formData.zAxisName = value);
+        this.zMaxChangeSubscription = this.zMaxControl.valueChanges.subscribe(value => this.formData.zMax = value);
+        this.zMinChangeSubscription = this.zMinControl.valueChanges.subscribe(value => this.formData.zMin = value);
         this.meanRangeChangeSubscription = this.meanRangeControl.valueChanges.subscribe(value => this.formData.meanRange = value);
 
         this.form = fb.group({
@@ -65,6 +77,8 @@ export class EditPlotDialogComponent implements OnDestroy {
             xAxisName: this.xAxisNameControl,
             yAxisName: this.yAxisNameControl,
             zAxisName: this.zAxisNameControl,
+            zMax: this.zMaxControl,
+            zMin: this.zMinControl,
             meanRange: this.meanRangeControl,
         });
     }
@@ -74,6 +88,8 @@ export class EditPlotDialogComponent implements OnDestroy {
         this.xAxisChangeSubscription.unsubscribe();
         this.yAxisChangeSubscription.unsubscribe();
         this.zAxisChangeSubscription.unsubscribe();
+        this.zMaxChangeSubscription.unsubscribe();
+        this.zMinChangeSubscription.unsubscribe();
         this.meanRangeChangeSubscription.unsubscribe();
     }
 
