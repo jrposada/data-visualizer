@@ -32,6 +32,7 @@ export class PlotComponent implements OnInit, OnChanges, OnDestroy {
     private xAxisName = "Columns";
     private yAxisName = "Rows";
     private zAxisName = "Values";
+    private meanRange = 1;
 
     constructor(private matDialog: MatDialog) { }
 
@@ -77,21 +78,21 @@ export class PlotComponent implements OnInit, OnChanges, OnDestroy {
             title: this.title,
             xAxisName: this.xAxisName,
             yAxisName: this.yAxisName,
-            zAxisName: this.zAxisName
+            zAxisName: this.zAxisName,
+            meanRange: this.meanRange,
         } as EditPlotData;
 
         const dialogRef = this.matDialog.open(EditPlotDialogComponent, dialogConfig);
 
-        dialogRef.afterClosed().subscribe(result => {
+        dialogRef.afterClosed().subscribe((result: EditPlotData) => {
             if (result) {
                 this.title = result.title;
                 this.xAxisName = result.xAxisName;
                 this.yAxisName = result.yAxisName;
                 this.zAxisName = result.zAxisName;
+                this.meanRange = result.meanRange;
 
-                const layout = this.calculateLayout();
-
-                Plotly.relayout(this.graphElement.nativeElement, layout);
+                this.updatePlot();
             }
         });
     }
@@ -118,7 +119,9 @@ export class PlotComponent implements OnInit, OnChanges, OnDestroy {
         this.sliderControl.setValue(value);
     }
 
-    protected calculateData(): any {}
+    protected calculateData(): any {
+        this.dataFrame.reduce(this.meanRange);
+    }
 
     private calculateLayout(): any {
         // Use a z range a 10% bigger than current data

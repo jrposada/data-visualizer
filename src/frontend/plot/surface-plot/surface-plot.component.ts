@@ -14,6 +14,8 @@ export class SurfacePlotComponent extends PlotComponent {
     }
 
     protected calculateData(): any {
+        super.calculateData();
+
         return [{
             showscale: false,
             colorscale: "Earth",
