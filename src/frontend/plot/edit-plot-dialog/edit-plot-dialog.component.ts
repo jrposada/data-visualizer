@@ -8,6 +8,7 @@ export interface EditPlotData {
     xAxisName: string;
     yAxisName: string;
     zAxisName: string;
+    meanRange: number;
 }
 
 @Component({
@@ -22,6 +23,7 @@ export class EditPlotDialogComponent implements OnDestroy {
     public readonly xAxisNameControl: FormControl = new FormControl();
     public readonly yAxisNameControl: FormControl = new FormControl();
     public readonly zAxisNameControl: FormControl = new FormControl();
+    public readonly meanRangeControl: FormControl = new FormControl();
 
     private formData: EditPlotData;
 
@@ -29,6 +31,7 @@ export class EditPlotDialogComponent implements OnDestroy {
     private xAxisChangeSubscription: Subscription;
     private yAxisChangeSubscription: Subscription;
     private zAxisChangeSubscription: Subscription;
+    private meanRangeChangeSubscription: Subscription;
 
     constructor(
         @Inject(MAT_DIALOG_DATA) data: EditPlotData,
@@ -40,25 +43,29 @@ export class EditPlotDialogComponent implements OnDestroy {
             title: data.title,
             xAxisName: data.xAxisName,
             yAxisName: data.yAxisName,
-            zAxisName: data.zAxisName
+            zAxisName: data.zAxisName,
+            meanRange: data.meanRange,
         };
 
         this.titleControl.setValue(data.title, { emitEvent: false });
         this.xAxisNameControl.setValue(data.xAxisName, { emitEvent: false });
         this.yAxisNameControl.setValue(data.yAxisName, { emitEvent: false });
         this.zAxisNameControl.setValue(data.zAxisName, { emitEvent: false });
+        this.meanRangeControl.setValue(data.meanRange, { emitEvent: false });
 
         // Subsrive to changes
         this.titleChangeSubscription = this.titleControl.valueChanges.subscribe(value => this.formData.title = value);
         this.xAxisChangeSubscription = this.xAxisNameControl.valueChanges.subscribe(value => this.formData.xAxisName = value);
         this.yAxisChangeSubscription = this.yAxisNameControl.valueChanges.subscribe(value => this.formData.yAxisName = value);
         this.zAxisChangeSubscription = this.zAxisNameControl.valueChanges.subscribe(value => this.formData.zAxisName = value);
+        this.meanRangeChangeSubscription = this.meanRangeControl.valueChanges.subscribe(value => this.formData.meanRange = value);
 
         this.form = fb.group({
             title: this.titleControl,
             xAxisName: this.xAxisNameControl,
             yAxisName: this.yAxisNameControl,
-            zAxisName: this.zAxisNameControl
+            zAxisName: this.zAxisNameControl,
+            meanRange: this.meanRangeControl,
         });
     }
 
@@ -67,6 +74,7 @@ export class EditPlotDialogComponent implements OnDestroy {
         this.xAxisChangeSubscription.unsubscribe();
         this.yAxisChangeSubscription.unsubscribe();
         this.zAxisChangeSubscription.unsubscribe();
+        this.meanRangeChangeSubscription.unsubscribe();
     }
 
     public save(): void {

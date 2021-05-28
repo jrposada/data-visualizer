@@ -14,6 +14,8 @@ export class Scatter3dPlotComponent extends PlotComponent {
     }
 
     protected calculateData(): any {
+        super.calculateData();
+
         const max = this.sliderControl.value * (this.dataFrame.columns.length - 1);
         return [{
             opacity: 0.8,

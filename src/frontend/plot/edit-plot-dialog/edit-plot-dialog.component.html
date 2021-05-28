@@ -15,6 +15,10 @@
         <mat-label>Z axis</mat-label>
         <input matInput [formControl]="zAxisNameControl" spellcheck="false">
     </mat-form-field>
+    <mat-form-field>
+        <mat-label>Mean range</mat-label>
+        <input matInput [formControl]="meanRangeControl" type="number">
+    </mat-form-field>
     <div class="grid-container">
         <button mat-raised-button
                 (click)="close()"
