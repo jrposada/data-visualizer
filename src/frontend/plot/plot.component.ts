@@ -32,13 +32,15 @@ export class PlotComponent implements OnInit, OnChanges, OnDestroy {
     private xAxisName = "Columns";
     private yAxisName = "Rows";
     private zAxisName = "Values";
+    private zMax = 0;
+    private zMin = 0;
     private meanRange = 1;
 
     constructor(private matDialog: MatDialog) { }
 
     public ngOnInit(): void {
-        this.sliderValueChangesSubscription = this.sliderControl.valueChanges.subscribe(() => this.updatePlot());
-        this.updatePlot();
+        this.sliderValueChangesSubscription = this.sliderControl.valueChanges.subscribe(() => this.updatePlot(false));
+        this.updatePlot(true);
         this.updateSlider();
     }
 
@@ -48,7 +50,7 @@ export class PlotComponent implements OnInit, OnChanges, OnDestroy {
 
     public ngOnChanges(changes: SimpleChanges) {
         if (changes.dataFrame) {
-            this.updatePlot();
+            this.updatePlot(true);
             this.updateSlider();
         }
     }
@@ -79,6 +81,8 @@ export class PlotComponent implements OnInit, OnChanges, OnDestroy {
             xAxisName: this.xAxisName,
             yAxisName: this.yAxisName,
             zAxisName: this.zAxisName,
+            zMax: this.zMax,
+            zMin: this.zMin,
             meanRange: this.meanRange,
         } as EditPlotData;
 
@@ -90,16 +94,18 @@ export class PlotComponent implements OnInit, OnChanges, OnDestroy {
                 this.xAxisName = result.xAxisName;
                 this.yAxisName = result.yAxisName;
                 this.zAxisName = result.zAxisName;
+                this.zMax = result.zMax;
+                this.zMin = result.zMin;
                 this.meanRange = result.meanRange;
 
-                this.updatePlot();
+                this.updatePlot(false);
             }
         });
     }
 
-    private updatePlot() {
+    private updatePlot(isDataFrameChange: boolean) {
         const data = this.calculateData();
-        const layout = this.calculateLayout();
+        const layout = this.calculateLayout(isDataFrameChange);
         const config = {
             responsive: true
         };
@@ -123,14 +129,16 @@ export class PlotComponent implements OnInit, OnChanges, OnDestroy {
         this.dataFrame.reduce(this.meanRange);
     }
 
-    private calculateLayout(): any {
-        // Use a z range a 10% bigger than current data
-        let zMin = Math.min(...this.dataFrame.min("row"));
-        let zMax = Math.max(...this.dataFrame.max("row"));
+    private calculateLayout(updateZ: boolean): any {
+        if (updateZ) {
+            // Use a z range a 10% bigger than current data
+            this.zMin = Math.min(...this.dataFrame.min("row"));
+            this.zMax = Math.max(...this.dataFrame.max("row"));
 
-        const zLength = zMin - zMax;
-        zMin -= zLength * 0.05;
-        zMax += zLength * 0.05;
+            const zLength = this.zMax - this.zMin;
+            this.zMin -= zLength * 0.05;
+            this.zMax += zLength * 0.05;
+        }
 
         // Calculate ratio in reference to x_ratio=1
         const yRatio = this.dataFrame.shape[0] / this.dataFrame.shape[1];
@@ -175,7 +183,7 @@ export class PlotComponent implements OnInit, OnChanges, OnDestroy {
                         text: this.zAxisName
                     },
                     ticks: "outside",
-                    range: [zMin, zMax]
+                    range: [this.zMin, this.zMax]
                 }
             }
         };

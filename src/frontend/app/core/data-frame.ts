@@ -79,13 +79,20 @@ export class DataFrame {
         this.sourceData = _.cloneDeep(data);
     }
 
+// [{"__EMPTY":"Manzanas","Paco":1,"Juan":3,"Pepe":6},
+// {"__EMPTY":"Peras","Paco":3,"Juan":7,"Pepe":2},
+// {"__EMPTY":"Cebollas","Paco":5,"Juan":0,"Pepe":1},
+// {"__EMPTY":"Albaricoque","Paco":4,"Juan":6,"Pepe":1},
+// {"__EMPTY":"Limon","Paco":2,"Juan":3,"Pepe":4}]
+// {"__EMPTY":"Tomates","Paco":2,"Juan":3,"Pepe":4}]
+
     public min(axis: "row" | "column"): number[] {
         const min: number[] = [];
         switch (axis) {
             case "row":
                 this.data?.forEach(row => {
                     const rowValues: number[] = [];
-                    Object.keys(row).slice(1).forEach(value => rowValues.push(Number.parseFloat(value)));
+                    Object.keys(row).slice(1).forEach(column => rowValues.push(Number.parseFloat(row[column])));
                     min.push(Math.min(...rowValues));
                 });
                 break;
@@ -106,7 +113,7 @@ export class DataFrame {
             case "row":
                 this.data?.forEach(row => {
                     const rowValues: number[] = [];
-                    Object.keys(row).slice(1).forEach(value => rowValues.push(Number.parseFloat(value)));
+                    Object.keys(row).slice(1).forEach(column => rowValues.push(Number.parseFloat(row[column])));
                     max.push(Math.max(...rowValues));
                 });
                 break;
@@ -133,7 +140,7 @@ export class DataFrame {
 
                     // Reduce the rows into one
                     const reduced: DataRow = subData.reduce(this.reduceDataRow);
-                    reduced[Object.keys(reduced)[0]] = `Average ${index + 1}`;
+                    reduced[Object.keys(reduced)[0]] = `Average ${(index + 1) / this.reduceIntervalSize}`;
                     const average: DataRow = this.divideDataRow(reduced, this.reduceIntervalSize);
 
                     this._data?.push(average);
